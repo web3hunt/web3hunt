@@ -1,0 +1,75 @@
+type Website @entity {
+  "unique identifier and primary key of the entity"
+  id: ID!
+  "owner of the space - user who initiated the space (web3hunt)"
+  owner: User!
+  "projects linked to this platform"
+  projects: [WebsiteProject!]! @derivedFrom(field: "website")
+
+  commentContractFactory: Bytes
+  upvoteContractFactory: Bytes
+  verificationContract: [Bytes!]
+
+  deployBlock: BigInt!
+  deployTimestamp: BigInt!
+  txHash: Bytes!
+}
+
+type Project @entity {
+  "unique identifier and primary key of the entity"
+  id: ID!
+  "owner of the project - user who created the project"
+  owner: User!
+  "content linked to this project"
+  metadata: String!
+
+  "one wallet can only vote once, number of upvotes is length of array -"
+  supporters: [SupporterProject!]! @derivedFrom(field: "project")
+  supportersCount: BigInt!
+  "project name, if content with such data is linked to the project"
+  name: String!
+  "project description, if content with such data is linked to the project"
+  short_description: String!
+  "project category - e.g. 'defi', 'ethAmsterdam', 'web3-social' etc."
+  category: String!
+
+  deployBlock: BigInt!
+  deployTimestamp: BigInt!
+  updateBlock: BigInt!
+  updateTimestamp: BigInt!
+  txHash: Bytes!
+}
+
+type User @entity {
+  "unique identifier and primary key of the entity"
+  id: ID! # address
+  "projects this user is owner of"
+  projectsOwner: [Project!]! @derivedFrom(field: "owner")
+  "projects this user is supporter of"
+  projectsSupporter: [SupporterProject!]! @derivedFrom(field: "user")
+
+  deployBlock: BigInt!
+  deployTimestamp: BigInt!
+  txHash: Bytes!
+}
+
+type SupporterProject @entity {
+  id: ID!
+  user: User!
+  project: Project!
+
+  deployBlock: BigInt!
+  deployTimestamp: BigInt!
+  txHash: Bytes!
+}
+
+
+type WebsiteProject @entity {
+  id: ID!
+  project: Project!
+  website: Website!
+
+  deployBlock: BigInt!
+  deployTimestamp: BigInt!
+  txHash: Bytes!
+}
