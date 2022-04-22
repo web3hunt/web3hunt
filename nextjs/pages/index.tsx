@@ -1,9 +1,9 @@
-import type { NextPage } from "next";
+import type { AppProps } from 'next/app';
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+function Home({ pageProps }: AppProps) {
   return (
     <div data-theme="cyberpunk" className={styles.container}>
       <Head>
@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
+      <Navbar {...pageProps} />
 
       <main className={styles.main}>
         <div className="hero min-h-screen bg-base-200">
