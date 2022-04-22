@@ -11,11 +11,9 @@
     "prepare:mumbai": "yarn mustache config/mumbai.json subgraph.template.yaml subgraph.yaml",
     "codegen": "graph codegen subgraph.yaml",
     "build": "graph build",
-
+    "deploy:web3hunt:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ web3hunt/web3hunt subgraph.yaml",
     "deploy:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ grmkris/hello-world-cms-rinkeby subgraph.yaml",
-
     "generate-and-deploy:rinkeby": "yarn generate-schema && yarn prepare:rinkeby && yarn codegen && yarn build && yarn deploy:rinkeby",
-
     "create-local": "graph create --node http://localhost:8020/ TIDV/indexer",
     "remove-local": "graph remove --node http://localhost:8020/ TIDV/indexer"
   },

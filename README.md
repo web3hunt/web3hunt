@@ -1,4 +1,4 @@
-# web3nao-hackathon-starter
+# web3hunt-starter
 
 ## structure
 
