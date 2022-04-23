@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { EPNS_NOTIFICATIONS } from "../../constants/api.const";
+import { ToastContainer, toast } from "react-toastify";
 
 export const Notifications = (props: { user?: string }) => {
   const [data, setData] = useState(null);
@@ -27,16 +28,29 @@ export const Notifications = (props: { user?: string }) => {
             message: result.payload.notification.body,
           };
         });
+        notifications.map((notification: any) => {
+          toast(`${notification.title}: ${notification.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
         setData(notifications);
         setLoading(false);
       });
   }, []);
 
-  if (!props.user) {
-    return null;
-  }
+  return null;
 
-  if (!data) return <p>No Notifications</p>;
+  // if (!props.user) {
+  //   return null;
+  // }
 
-  return <div>{(data as any[]).length} Notifications</div>;
+  // if (!data) return <p>No Notifications</p>;
+
+  // return <div>{(data as any[]).length} Notifications</div>;
 };

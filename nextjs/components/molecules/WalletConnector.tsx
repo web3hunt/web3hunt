@@ -1,8 +1,7 @@
-import { stat } from 'fs';
-import React, { useEffect } from 'react';
-import { SiweMessage } from 'siwe';
-import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
-import { DDMItem, DropDownMenu } from './DropDownMenu';
+import React from "react";
+import { SiweMessage } from "siwe";
+import { useAccount, useConnect, useNetwork, useSignMessage } from "wagmi";
+import { DDMItem, DropDownMenu } from "./DropDownMenu";
 
 export function WalletConnector() {
   const [{ data: accountData }, disconnect] = useAccount({
@@ -27,13 +26,13 @@ export function WalletConnector() {
 
       setState((x) => ({ ...x, error: undefined, loading: true }));
       // Fetch random nonce, create SIWE message, and sign with wallet
-      const nonceRes = await fetch('/api/nonce');
+      const nonceRes = await fetch("/api/nonce");
       const message = new SiweMessage({
         domain: window.location.host,
         address,
-        statement: 'Sign in with Ethereum to the app.',
+        statement: "Sign in with Ethereum to the app.",
         uri: window.location.origin,
-        version: '1',
+        version: "1",
         chainId,
         nonce: await nonceRes.text(),
       });
@@ -41,14 +40,14 @@ export function WalletConnector() {
       if (signRes.error) throw signRes.error;
 
       // Verify signature
-      const verifyRes = await fetch('/api/verify', {
-        method: 'POST',
+      const verifyRes = await fetch("/api/verify", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ message, signature: signRes.data }),
       });
-      if (!verifyRes.ok) throw new Error('Error verifying message');
+      if (!verifyRes.ok) throw new Error("Error verifying message");
 
       setState((x) => ({ ...x, address, loading: false }));
     } catch (error) {
@@ -60,7 +59,7 @@ export function WalletConnector() {
   React.useEffect(() => {
     const handler = async () => {
       try {
-        const res = await fetch('/api/me');
+        const res = await fetch("/api/me");
         const json = await res.json();
         setState((x) => ({ ...x, address: json.address }));
       } finally {
@@ -71,8 +70,8 @@ export function WalletConnector() {
     (async () => await handler())();
 
     // 2. window is focused (in case user logs out of another window)
-    window.addEventListener('focus', handler);
-    return () => window.removeEventListener('focus', handler);
+    window.addEventListener("focus", handler);
+    return () => window.removeEventListener("focus", handler);
   }, []);
 
   let ddmItem: DDMItem[] = [];
@@ -86,9 +85,9 @@ export function WalletConnector() {
       <DropDownMenu
         items={[
           {
-            label: 'logout',
+            label: "logout",
             action: async () => {
-              await fetch('/api/logout');
+              await fetch("/api/logout");
               disconnect();
             },
           },
@@ -97,7 +96,7 @@ export function WalletConnector() {
           accountData.ens?.name
             ? `${accountData.ens?.name}`
             : accountData.address.substring(0, 5) +
-              '...' +
+              "..." +
               accountData.address.substring(accountData.address.length - 3)
         }
       ></DropDownMenu>

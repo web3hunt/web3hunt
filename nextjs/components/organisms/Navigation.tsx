@@ -28,7 +28,9 @@ export const Navigation = () => {
               </Link>
               <div className="hidden md:block">
                 <NavigationItems></NavigationItems>
-                <Notifications user={accountData?.address} />
+                {/* {accountData?.address && (
+                  <Notifications user={accountData?.address} />
+                )} */}
               </div>
               <div className="ml-auto">
                 <WalletConnector />

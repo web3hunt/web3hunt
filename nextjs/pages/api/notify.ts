@@ -11,12 +11,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   switch (method) {
     case "POST":
-      const { title, message, recipients } = req.body;
+      console.log(req.body);
+      const title = req.body.title;
+      const message = req.body.message;
+      const recipients = req.body.recipients;
+      console.log({ title, message });
 
       try {
         await sendNotification(title, message, recipients);
         res.json({ ok: true });
-      } catch {
+      } catch (error) {
+        console.log(error);
         res.json({ ok: false });
       }
 
