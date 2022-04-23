@@ -1,10 +1,13 @@
 import type { AppProps } from 'next/app';
+import { useContext } from 'react';
+import { AppCtx } from '../../context/CtxProvider';
 import { PrimaryButton } from '../atoms/Buttons';
 import { Paragraph, Title } from '../atoms/Typography';
 import { Container } from '../templates/Container';
 import { Upload } from '../Upload';
 
 export const Hero = ({ pageProps }: AppProps) => {
+  const ctx = useContext(AppCtx);
   return (
     <section className="body-font text-zinc-800">
       <Container className="py-24 lg:flex-row">
@@ -20,14 +23,20 @@ export const Hero = ({ pageProps }: AppProps) => {
               Projects
             </span>
           </Title>
-      
+
           <Paragraph className="mb-8 font-semibold">
             {
               "We help create the best Web3 user experience. Ping us and let's build something epic together!"
             }
           </Paragraph>
           <div className="flex justify-center">
-            <PrimaryButton>Create Project</PrimaryButton>
+            <PrimaryButton
+              onClick={() => {
+                ctx?.modalCtx.dispatch({ type: 'open' });
+              }}
+            >
+              Create Project
+            </PrimaryButton>
           </div>
           <div className="flex justify-center"></div>
           <div className="flex justify-center">

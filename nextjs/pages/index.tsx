@@ -9,8 +9,9 @@ import { Web3HuntContentManager } from '../types/Web3HuntContentManager';
 import { CMSAction, WEB3_HUNT_CONTRACT } from '../constants/api.const';
 import base58 from 'bs58';
 import { useQuery } from 'urql';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { QUERY } from '../queries';
+import { AppCtx } from '../context/CtxProvider';
 
 function Home({ pageProps }: AppProps) {
   const provider = useProvider();
@@ -19,6 +20,8 @@ function Home({ pageProps }: AppProps) {
     contractInterface: WEB3HUNT_ABI,
     signerOrProvider: provider,
   }) as Web3HuntContentManager;
+
+  const ctx = useContext(AppCtx);
 
   // retireve data from projects
   const [result, reexecuteQuery] = useQuery({
@@ -92,7 +95,7 @@ function Home({ pageProps }: AppProps) {
   return (
     <Layout title="Home">
       <Hero {...pageProps}></Hero>
-      <CreateProject></CreateProject>
+      {ctx?.modalCtx.isOpen ? <CreateProject></CreateProject> : undefined}
       <ProjectOverview></ProjectOverview>
     </Layout>
   );

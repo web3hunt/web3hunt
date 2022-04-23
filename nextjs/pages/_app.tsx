@@ -4,14 +4,17 @@ import { Provider } from 'wagmi';
 import { connectors } from '../connectors';
 import { createClient, Provider as ProviderUrql } from 'urql';
 import { urqlClient } from '../utils/urql';
+import { CtxProvider } from '../context/CtxProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ProviderUrql value={urqlClient}>
-      <Provider autoConnect connectors={connectors}>
-        <Component {...pageProps} />
-      </Provider>
-    </ProviderUrql>
+    <CtxProvider>
+      <ProviderUrql value={urqlClient}>
+        <Provider autoConnect connectors={connectors}>
+          <Component {...pageProps} />
+        </Provider>
+      </ProviderUrql>
+    </CtxProvider>
   );
 }
 
