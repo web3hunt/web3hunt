@@ -13,6 +13,7 @@ import { WEB3HUNT_ABI } from '../../abis/Web3HuntContentManager';
 import { Web3HuntContentManager } from '../../types/Web3HuntContentManager';
 import { useQuery } from 'urql';
 import { useEffect, useState } from 'react';
+import {toast} from "react-toastify";
 
 type Props = {
   id: string;
@@ -85,6 +86,7 @@ export const ProjectDetail = ({ id }: Props) => {
     ) as Web3HuntContentManager;
 
     const response = await cmsContract.stateChange(requests);
+    toast.info("Upvoted project, wait for chain to sync");
     console.log('Response: ', response.data);
     console.log('TxHash: ', response.hash);
   };
