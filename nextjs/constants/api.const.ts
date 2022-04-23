@@ -24,5 +24,5 @@ export const SUBGRAPH_MUMBAI=process.env.NEXT_PUBLIC_SUBGRAPH_MUMBAI || "https:/
 export const SUBGRAPH_RINKEBY=process.env.NEXT_PUBLIC_SUBGRAPH_RINKEBY || "https://api.thegraph.com/subgraphs/name/web3hunt/web3hunt"
 
 
-export const PINATA_API_KEY = process.env.NEXT_PUBLIC_PINATA_API_KEY || "";
-export const PINATA_API_SECRET = process.env.NEXT_PUBLIC_PINATA_API_SECRET || "";
+export const PINATA_API_KEY = process.env.PINATA_API_KEY || "";
+export const PINATA_API_SECRET = process.env.PINATA_API_SECRET || "";
