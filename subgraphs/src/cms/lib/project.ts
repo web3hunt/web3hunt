@@ -36,11 +36,20 @@ export function createProject(owner : string, websiteId: string, projectId: stri
 
   log.debug("Getting metadata from ipfs {}", [ipfsMetadata])
   let data = ipfs.cat(ipfsMetadata)
+  let counter = 0
+  while (!data) {
+    counter++
+    data = ipfs.cat(ipfsMetadata)
+    if (counter > 10) {
+      log.debug("Failed to get metadata from ipfs {}", [ipfsMetadata])
+      return
+    }
+  }
   if (data === null) {
     log.warning("metadata {} not found on IPFS", [ipfsMetadata])
     return
   }
-  log.debug("metadata found on IPFS {}", [ipfsMetadata])
+  log.debug("metadata found on IPFS {} number of tries: {}", [ipfsMetadata, counter.toString()])
   if (data.toString().slice(data.toString().length - 1, data.toString().length) != "}") {
     log.debug("skip parsing - metadata {} is not a JSON object", [ipfsMetadata])
     return;
