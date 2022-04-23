@@ -6,6 +6,11 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background-color: #f5f9ff;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 @font-face {

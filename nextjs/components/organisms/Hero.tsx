@@ -1,8 +1,10 @@
+import type { AppProps } from 'next/app';
 import { PrimaryButton } from '../atoms/Buttons';
 import { Paragraph, Title } from '../atoms/Typography';
 import { Container } from '../templates/Container';
+import { Upload } from '../Upload';
 
-export const Hero = () => {
+export const Hero = ({ pageProps }: AppProps) => {
   return (
     <section className="body-font text-zinc-800">
       <Container className="py-24 lg:flex-row">
@@ -29,6 +31,10 @@ export const Hero = () => {
           </Paragraph>
           <div className="flex justify-center">
             <PrimaryButton>Create Project</PrimaryButton>
+          </div>
+          <div className="flex justify-center"></div>
+          <div className="flex justify-center">
+            <Upload {...pageProps} />
           </div>
         </div>
         <div className="relative z-0 w-5/6 lg:w-full lg:w-1/2 lg:max-w-lg">

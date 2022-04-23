@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { AppProps } from 'next/app';
 import { Hero } from '../components/organisms/Hero';
 import { Projects } from '../components/organisms/Projects';
 import Layout from '../components/templates/Layout';
@@ -8,8 +8,7 @@ import {Web3HuntContentManager} from "../types/Web3HuntContentManager";
 import {CMSAction, WEB3_HUNT_CONTRACT} from "../constants/api.const";
 import base58 from "bs58";
 
-const Home: NextPage = () => {
-
+function Home({ pageProps }: AppProps) {
   const provider = useProvider()
   const contract = useContract({
     addressOrName: WEB3_HUNT_CONTRACT,
@@ -73,7 +72,7 @@ const Home: NextPage = () => {
 
   return (
     <Layout title="Home">
-      <Hero></Hero>
+      <Hero {...pageProps}></Hero>
       <Projects></Projects>
     </Layout>
   );
