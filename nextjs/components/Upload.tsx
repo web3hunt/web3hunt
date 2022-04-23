@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import React from "react";
 import { useAccount } from "wagmi";
+import { PrimaryButton } from './atoms/Buttons';
 
 export function Upload({ pageProps }: AppProps) {
   const [{ data: accountData }] = useAccount({
@@ -30,9 +31,9 @@ export function Upload({ pageProps }: AppProps) {
   return (
     <div>
       <input type="text" id="input" onChange={(e) => setState((x) => ({ ...x, content: `${e.target.value}` }))}/>
-      <button onClick={() => upload(state.content)}>
+      <PrimaryButton onClick={() => upload(state.content)}>
         Upload
-      </button>
+      </PrimaryButton>
       <br />
       { state.cid }
     </div>

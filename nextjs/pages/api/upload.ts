@@ -14,6 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       // only uploads data to filecoin if iron session is not empty
       if (Object.keys(req.session).length != 0) {
         const { fileName, payload } = req.body;
+        console.log(payload)
         const payloadBuffer = Buffer.from(payload)
         const payloadFile = new File([payloadBuffer], 'payload.json')
         const client = new Web3Storage({ token: `${getAccessToken()}` })

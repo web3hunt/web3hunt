@@ -3,6 +3,7 @@ import { PrimaryButton } from '../atoms/Buttons';
 import { Paragraph, Title } from '../atoms/Typography';
 import { Container } from '../templates/Container';
 import { Wagmi } from '../Wagmi';
+import { Upload } from '../Upload';
 
 export const Hero = ({ pageProps }: AppProps) => {
   return (
@@ -34,6 +35,9 @@ export const Hero = ({ pageProps }: AppProps) => {
           </div>
           <div className="flex justify-center">
             <Wagmi {...pageProps} />
+          </div>
+          <div className="flex justify-center">
+            <Upload {...pageProps} />
           </div>
         </div>
         <div className="relative z-0 w-5/6 lg:w-full lg:w-1/2 lg:max-w-lg">
