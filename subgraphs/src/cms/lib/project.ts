@@ -46,7 +46,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
       return
     }
   }
-  if (data == null) {
+  if (!data) {
     log.warning("metadata {} not found on IPFS", [ipfsMetadata])
     return
   }
