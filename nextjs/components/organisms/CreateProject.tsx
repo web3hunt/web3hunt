@@ -67,10 +67,6 @@ export function CreateProject() {
     const requests = [request];
     console.log('Creating project: ', requests);
 
-    // make sure file is accesible by ipfs.io/ipfs/<hash>
-    const dataIpfs = await fetch(`https://ipfs.io/ipfs/${metadata}`);
-    console.log('dataIpfs', dataIpfs);
-
     const cmsContract = new ethers.Contract(
       WEB3_HUNT_CONTRACT,
       WEB3HUNT_ABI,
@@ -145,10 +141,12 @@ export function CreateProject() {
       imagePreviewCID = await previewRes.text();
     }
 
-    let mediaCIDs = [];
+    const base64result = await Promise.all(media.map(m => {
+      return getBase64(m)
+    }))
 
-    for (let m of media) {
-      const previewRes = await fetch(
+    const mediaCIDsResponse = await Promise.all(base64result.map((m, index) => {
+      return fetch(
         '/api/upload',
         {
           method: 'POST',
@@ -157,12 +155,16 @@ export function CreateProject() {
           },
           body: JSON.stringify({
             fileName: 'picture',
-            payload: await getBase64(m)
+            payload: m
           })
         }
       )
-      mediaCIDs.push(await previewRes.text())
-    }
+    }))
+
+    const mediaCIDs = await Promise.all(mediaCIDsResponse.map(m => {
+      return m.text()
+    }))
+
 
     const res = await fetch(
       '/api/ipfs-json',
@@ -187,7 +189,6 @@ export function CreateProject() {
 
     if (!res.ok) throw new Error('Error creating project');
     const result = await res.json();
-    alert(result.IpfsHash);
     const onchainResult = await createProjectOnchain(
       result.IpfsHash,
       WEB3_HUNT_WEBSITE_RINKEBY
