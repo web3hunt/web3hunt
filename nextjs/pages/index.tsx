@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import { Hero } from '../components/organisms/Hero';
-import { Projects } from '../components/organisms/Projects';
+import { ProjectOverview } from '../components/organisms/ProjectOverview';
 import Layout from '../components/templates/Layout';
 import {useAccount, useContract, useProvider} from "wagmi";
 import {WEB3HUNT_ABI} from "../abis/Web3HuntContentManager";
@@ -113,9 +113,9 @@ function Home({ pageProps }: AppProps) {
   return (
     <Layout title="Home">
       <Hero {...pageProps}></Hero>
-      <Projects></Projects>
+      <ProjectOverview></ProjectOverview>
     </Layout>
   );
-};
+}
 
 export default Home;
