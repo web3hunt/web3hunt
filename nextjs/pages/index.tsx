@@ -7,6 +7,36 @@ import {WEB3HUNT_ABI} from "../abis/Web3HuntContentManager";
 import {Web3HuntContentManager} from "../types/Web3HuntContentManager";
 import {CMSAction, WEB3_HUNT_CONTRACT} from "../constants/api.const";
 import base58 from "bs58";
+import {useQuery} from "urql";
+import {useEffect} from "react";
+
+const QUERY = `
+{
+  websites (where: {id: "009530022bae066aaab54e8d0ebe05359f355162ffb816205877355cfcd2d557bc"}) {
+    id
+    projects {
+      project {
+        id
+        owner {
+          id
+        }
+        name
+        short_description
+        imagePreview
+        metadata {
+          id
+          deployBlock
+          deployTimestamp
+        }
+        deployBlock
+        deployTimestamp
+        updateBlock
+        updateTimestamp
+      }
+    }
+  }
+}
+`;
 
 function Home({ pageProps }: AppProps) {
   const provider = useProvider()
@@ -15,6 +45,12 @@ function Home({ pageProps }: AppProps) {
     contractInterface: WEB3HUNT_ABI,
     signerOrProvider: provider,
   }) as Web3HuntContentManager
+
+  // retireve data from projects
+  const [result, reexecuteQuery] = useQuery({
+    query: QUERY,
+  });
+
 
   // example of how to create new project
 
@@ -69,6 +105,10 @@ function Home({ pageProps }: AppProps) {
     console.log("Response: ", response);
     console.log("TxHash: ", response.hash);
   }
+
+  useEffect(() => {
+    console.log("Urql result: ", result);
+  }, [result])
 
   return (
     <Layout title="Home">

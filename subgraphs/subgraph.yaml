@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Web3HuntContentManager
-    network: goerli
+    network: rinkeby
     source:
       address: "0x3614646fdEc2B4F9130df9E6d4e54E5230f48A6e"
       abi: Web3HuntContentManager
-      startBlock: 2235682
+      startBlock: 10549235
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

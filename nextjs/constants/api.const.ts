@@ -19,6 +19,6 @@ export enum CMSAction {
   UPVOTE_PROJECT = "0x0101",
   UPDATE_PROJECT = "0x0102",
 }
-export const SUBGRAPH_OPTIMISM_KOVAN=process.env.NEXT_PUBLIC_SUBGRAPH_OPTIMISM_KOVAN
-export const SUBGRAPH_MUMBAI=process.env.NEXT_PUBLIC_SUBGRAPH_MUMBAI
-export const SUBGRAPH_RINKEBY=process.env.NEXT_PUBLIC_SUBGRAPH_RINKEBY
+export const SUBGRAPH_OPTIMISM_KOVAN=process.env.NEXT_PUBLIC_SUBGRAPH_OPTIMISM_KOVAN || "https://api.thegraph.com/subgraphs/name/subgraphs/web3-hunt-optimistic-kovan"
+export const SUBGRAPH_MUMBAI=process.env.NEXT_PUBLIC_SUBGRAPH_MUMBAI || "https://api.thegraph.com/subgraphs/name/web3hunt/web3-hunt-polygon-mumbai"
+export const SUBGRAPH_RINKEBY=process.env.NEXT_PUBLIC_SUBGRAPH_RINKEBY || "https://api.thegraph.com/subgraphs/name/web3hunt/web3hunt"

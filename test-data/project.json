@@ -1,0 +1,9 @@
+{
+  "name": "EthGlobal",
+  "short_description": "EthGlobal demo project",
+  "description": "This is the best application ever, it codes itself and does everything you will ever need",
+  "tags": ["ethglobal", "hello-world", "demo"],
+  "imagePreview": "QmauVThntbvweMd7yYyR3oXMVduVnrN4T9HpKUDMmtYrXZ",
+  "media": ["QmP6aZFbJ4uM1cu2ZnNNFrD5mCGis4YTre9G8T9mCahWTM", "QmPU3b3vtrizCwL5xdpr5iMMD37pSwGugFyYGWPsnxaUHG", "QmSqFUsAW1NJgFwPYaUJ1jojhHzvqHTJetxYz4DN1d934w"],
+  "metadata_type": "project_metadata"
+}
