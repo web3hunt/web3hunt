@@ -6,7 +6,7 @@ import { FilterButton } from '../atoms/Buttons';
 import { Categories, selectCategory } from '../filter';
 
 
-export const Projects = () => {
+export const ProjectOverview = () => {
   return (
     <section id="service" className="body-font ">
       <div className="mb-5 text-center">
