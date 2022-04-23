@@ -1,4 +1,5 @@
-type Project = {
+export type Project = {
+    id: string;
     title: string;
     desc: string;
     image: string;
@@ -7,10 +8,9 @@ type Project = {
   }
 
 export enum Categories {
-    DEFI = 'Defi',
+    DEFI = 'ethglobal',
     NFT = 'Nft',
-    HOT = 'Hot',
-    YOURPROJECTS = 'Your projects'
+    ALLPROJECTS = 'All Projects'
   }
 
 function sortVotesDesc(a: Project, b: Project){
@@ -28,6 +28,7 @@ function getAllProjects(result: any) {
     }
     result.data.websites[0].projects.forEach( (project: any) => {
         let proj: Project = {
+            id: project.project.id,
             title: project.project.name,
             tags: project.project.tags,
             desc: project.project.short_description,
@@ -39,12 +40,14 @@ function getAllProjects(result: any) {
     return allProjects
 }
 
-export function selectCategory(result: any, category: Categories) {
+export function selectCategory(result: any, category: any) {
     var projectsInCategory: Array<Project> = [];
     var AllProjects: Array<Project> = getAllProjects(result)
     AllProjects = sortFromHottest(AllProjects)
     AllProjects.forEach( (project) => {
-        if (project.tags.includes(category)){
+        if (category == null) {
+            projectsInCategory.push(project)
+        } else if (project.tags.includes(category)) {
             projectsInCategory.push(project);
         }
     })

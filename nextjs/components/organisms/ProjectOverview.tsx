@@ -1,22 +1,31 @@
-import { PROJECTS } from "../../constants/placeholders";
 import { Title } from "../atoms/Typography";
 import { ProjectCard } from "../molecules/ProjectCard";
 import { Container } from "../templates/Container";
 import { FilterButton } from "../atoms/Buttons";
-import { Categories, selectCategory } from "../Filter";
+import { Categories, selectCategory, Project } from "../Filter";
 import { useQuery } from "urql";
 import { QUERY } from "../../queries";
+import { useState } from "react";
 
 export const ProjectOverview = () => {
   const [result, reexecuteQuery] = useQuery({
     query: QUERY,
   });
+  const [filterApplied, setFilterApplied] = useState(false)
+  const [filter, setFilter] = useState<Project[]>([]);
 
   if (!result.data) {
     return <div></div>;
   }
-  console.log(result.data.websites[0].projects[0].project);
+  // console.log(result.data.websites[0].projects[0].project);
 
+  let projects;
+
+  if(filterApplied) {
+    projects = filter;
+  } else {
+    projects = selectCategory(result, null)
+  }
   return (
     <section id="service" className="body-font ">
       <div className="mb-5 text-center">
@@ -36,35 +45,39 @@ export const ProjectOverview = () => {
         />
         <Container className="pb-24">
           <div
-            className="h-16 grid grid-cols-4 gap-4 content-center "
+            className="h-16 grid grid-cols-3 gap-4 content-center "
             role="group"
           >
-            <FilterButton onClick={() => selectCategory(result, Categories.DEFI)}>
+            <FilterButton onClick={() => {
+              setFilter(selectCategory(result, Categories.DEFI));
+              setFilterApplied(true)
+            }}>
               {Categories.DEFI}
             </FilterButton>
-            <FilterButton onClick={() => selectCategory(result, Categories.NFT)}>
+            <FilterButton onClick={() => {
+              setFilter(selectCategory(result, Categories.NFT));
+              setFilterApplied(true)
+            }}>
               {Categories.NFT}
             </FilterButton>
-            <FilterButton onClick={() => selectCategory(result, Categories.HOT)}>
-              {Categories.HOT}
-            </FilterButton>
-            <FilterButton
-              onClick={() => selectCategory(result, Categories.YOURPROJECTS)}
-            >
-              {Categories.YOURPROJECTS}
+            <FilterButton onClick={() => {
+              setFilter(selectCategory(result, null));
+              setFilterApplied(true)
+            }}>
+              {Categories.ALLPROJECTS}
             </FilterButton>
           </div>
 
           <div className="mb-5 ..."></div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {result.data.websites[0].projects.map(({ project }: any) => (
+            {projects.map((project : any) => (
               <ProjectCard
                 key={project.id}
                 id={project.id}
-                title={project.name}
-                desc={project.short_description}
-                image={project.imagePreview}
-                votes={project.supportersCount}
+                title={project.title}
+                desc={project.desc}
+                image={project.image}
+                votes={project.votes}
                 tags={project.tags}
               ></ProjectCard>
             ))}
