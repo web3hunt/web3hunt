@@ -11,23 +11,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   switch (method) {
     case "POST":
-      // only uploads data to filecoin if iron session is not empty
-      if (Object.keys(req.session).length != 0) {
-        const { fileName, payload } = req.body;
-        const payloadBuffer = Buffer.from(payload)
-        const payloadFile = new File([payloadBuffer], fileName)
-        const client = new Web3Storage({ token: `${getAccessToken()}` })
-        try {
-          var filecoinUpload = await client.put([payloadFile], {
-            name: fileName,
-            maxRetries: 3
-          })
-          res.setHeader("Content-Type", "text/plain");
-          res.send(filecoinUpload);
-        } catch {
-          res.json({ ok: false });
-        }
-      } else {
+      const { fileName, payload } = req.body;
+      const payloadBuffer = Buffer.from(payload)
+      const payloadFile = new File([payloadBuffer], fileName)
+      const client = new Web3Storage({ token: `${getAccessToken()}` })
+      try {
+        var filecoinUpload = await client.put([payloadFile], {
+          name: fileName,
+          maxRetries: 3
+        })
+        res.setHeader("Content-Type", "text/plain");
+        res.send(filecoinUpload);
+      } catch {
         res.json({ ok: false });
       }
       break;
