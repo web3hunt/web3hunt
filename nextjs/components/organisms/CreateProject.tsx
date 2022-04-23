@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { PhotographIcon } from '@heroicons/react/outline'
 import { useAccount } from "wagmi";
 import { PrimaryButton } from '../atoms/Buttons';
 
