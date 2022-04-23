@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from "next/head";
 import Navbar from "../components/Navbar";
+import { Upload } from '../components/Upload';
 import styles from "../styles/Home.module.css";
 
 function Home({ pageProps }: AppProps) {
@@ -13,6 +14,8 @@ function Home({ pageProps }: AppProps) {
       </Head>
 
       <Navbar {...pageProps} />
+
+      <Upload {...pageProps} />
 
       <main className={styles.main}>
         <div className="hero min-h-screen bg-base-200">
