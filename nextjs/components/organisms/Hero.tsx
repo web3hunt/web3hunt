@@ -4,7 +4,6 @@ import { AppCtx } from '../../context/CtxProvider';
 import { PrimaryButton } from '../atoms/Buttons';
 import { Paragraph, Title } from '../atoms/Typography';
 import { Container } from '../templates/Container';
-import { Upload } from '../Upload';
 
 export const Hero = ({ pageProps }: AppProps) => {
   const ctx = useContext(AppCtx);
