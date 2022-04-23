@@ -186,7 +186,7 @@ export function CreateProject() {
             className="w-full bg-zinc-50 p-8 md:p-24 rounded-xl relative animate__animated animate__fadeInUpBig"
           >
             <button
-              className="absolute top-10 right-0 z-50 inline-flex items-center justify-center rounded-md px-4 py-4 text-zinc-800 hover:text-gray-300 focus:outline-none dark:text-white md:right-10 md:px-4"
+              className="absolute top-10 right-0 z-50 inline-flex items-center justify-center rounded-md px-4 py-4 text-zinc-800 hover:text-gray-300 focus:outline-none md:right-10 md:px-4"
               onClick={() => ctx?.modalCtx.dispatch({ type: 'close' })}
             >
               <div className="flex w-8 flex-col items-end">
@@ -197,7 +197,7 @@ export function CreateProject() {
             <div className="group relative z-0 mb-6 w-full">
               <label
                 htmlFor="name"
-                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-zinc-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-purple-600 dark:text-zinc-400 peer-focus:dark:text-blue-500"
+                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-zinc-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-purple-600  "
               >
                 Name*
               </label>
@@ -210,7 +210,7 @@ export function CreateProject() {
                   },
                 }}
                 id="name"
-                className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
+                className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 "
                 placeholder="EthGlobal"
                 required
               />
@@ -218,7 +218,7 @@ export function CreateProject() {
             <div className="group relative z-0 mb-6 w-full">
               <label
                 htmlFor="short_descriptionn"
-                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-zinc-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-purple-600 dark:text-zinc-400 peer-focus:dark:text-blue-500"
+                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-zinc-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-purple-600 "
               >
                 Short description*
               </label>
@@ -231,7 +231,7 @@ export function CreateProject() {
                   },
                 }}
                 id="short_description"
-                className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
+                className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 "
                 placeholder="EthGlobal demo project"
                 required
               />
@@ -239,7 +239,7 @@ export function CreateProject() {
             <div className="group relative z-0 mb-6 w-full">
               <label
                 htmlFor="description"
-                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-zinc-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-purple-600 dark:text-zinc-400 peer-focus:dark:text-blue-500"
+                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-zinc-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-purple-600 "
               >
                 Description*
               </label>
@@ -252,7 +252,7 @@ export function CreateProject() {
                   },
                 }}
                 id="description"
-                className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
+                className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 "
                 placeholder="This is the best application ever, it codes itself and does everything you will ever need"
                 required
               />
@@ -260,7 +260,7 @@ export function CreateProject() {
             <div className="group relative z-0 mb-6 w-full">
               <label
                 htmlFor="tags"
-                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-zinc-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-purple-600 dark:text-zinc-400 peer-focus:dark:text-blue-500"
+                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-zinc-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-purple-600 "
               >
                 Tags*
               </label>
@@ -273,7 +273,7 @@ export function CreateProject() {
                   },
                 }}
                 id="tags"
-                className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
+                className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 "
                 placeholder="ethglobal, ADASD"
                 required
               />
@@ -287,7 +287,7 @@ export function CreateProject() {
                 onChange={pickedHandler}
               />
               <div
-                className={`m-auto flex max-w-md items-center rounded-lg bg-gray-50 p-5 shadow-2xl dark:bg-slate-700`}
+                className={`m-auto flex max-w-md items-center rounded-lg bg-gray-50 p-5 shadow-2xl `}
                 onClick={pickImageHandler}
               >
                 <div className="flex w-full flex-col items-center justify-center space-y-2">
@@ -310,7 +310,7 @@ export function CreateProject() {
                 onChange={pickedHandlerMedia}
               />
               <div
-                className={`m-auto flex max-w-md items-center rounded-lg bg-gray-50 p-5 shadow-2xl dark:bg-slate-700`}
+                className={`m-auto flex max-w-md items-center rounded-lg bg-gray-50 p-5 shadow-2xl`}
                 onClick={pickImageHandlerMedia}
               >
                 <div className="flex w-full flex-col items-center justify-center space-y-2">
