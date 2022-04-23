@@ -1,13 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import {pinata} from "../../utils/pinata";
 
-export const config = {
-  api: {
-    bodyParser: false
-  }
-}
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(req.body)
   const { method } = req;
   switch (method) {
     case 'POST': {

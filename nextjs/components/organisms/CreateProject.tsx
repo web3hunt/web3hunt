@@ -106,10 +106,10 @@ export function CreateProject() {
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          projectBody: JSON.stringify({
+          projectBody: {
             name: event.target.name.value,
             short_description: event.target.short_description.value,
             description: event.target.description.value,
@@ -117,10 +117,9 @@ export function CreateProject() {
             imagePreview: imagePreviewCID,
             media: mediaCIDs,
             metadata_type: "project_metadata"
-          })
+          }
         })
-      }
-    )
+      })
 
     if (!res.ok) throw new Error("Error creating project");
     const result = await res.text()
