@@ -89,6 +89,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     log.debug("ProjectMetadata already exists {}", [buildMappingTableId(projectId, ipfsMetadata)] );
     return
   }
+  projectMetadata = new ProjectMetadata(buildMappingTableId(projectId, ipfsMetadata))
   projectMetadata.project = projectId
   projectMetadata.metadata = ipfsMetadata
   projectMetadata.deployTimestamp = event.block.timestamp
@@ -129,6 +130,52 @@ export function upvoteProject(eventAuthor : string, projectId : string, event: S
 export function updateProject(eventAuthor : string, projectId : string, metadata: string, event: StateChange): void {
   let project = Project.load(projectId)
   if (project == null) return
+
+  log.debug("Getting metadata from ipfs {}", [metadata])
+  let data = ipfs.cat(metadata)
+  if (data === null) {
+    log.warning("metadata {} not found on IPFS", [metadata])
+    return
+  }
+  log.debug("metadata found on IPFS {}", [metadata])
+  if (data.toString().slice(data.toString().length - 1, data.toString().length) != "}") {
+    log.debug("skip parsing - metadata {} is not a JSON object", [metadata])
+    return;
+  }
+  log.debug("parsing metadata {}", [data.toString()])
+  let valueWrapped = json.try_fromString(data.toString())
+  if (valueWrapped.isError) {
+    log.debug("metadata not valid JSON (string) {}", [metadata])
+    log.warning("metadata not valid JSON (string) {}", [metadata])
+    return
+  }
+
+  log.debug("metadata valid JSON", [])
+  let value = valueWrapped.value
+
+  let jsonObject = value.toObject()
+
+  let short_description = jsonObject.get("short_description")
+  if (short_description != null) {
+    log.debug("short_description {}", [short_description.toString()])
+    project.short_description = short_description.toString()
+  }
+
+  let name = jsonObject.get("name")
+  if (name != null) {
+    log.debug("name {}", [name.toString()])
+    project.name = name.toString()
+  }
+
+  let category = jsonObject.get("category")
+  if (category != null) {
+    log.debug("category {}", [category.toString()])
+    project.category = category.toString()
+  } else {
+    log.debug("category not found, defaulting to 'other'", [])
+    project.category = "other"
+  }
+
   // create projectMetadata entity
   let projectMetadata = ProjectMetadata.load(buildMappingTableId(projectId, metadata))
   if (projectMetadata != null) {
@@ -140,6 +187,7 @@ export function updateProject(eventAuthor : string, projectId : string, metadata
   projectMetadata.metadata = metadata
   projectMetadata.deployTimestamp = event.block.timestamp
   projectMetadata.deployBlock = event.block.number
+
 
   project.updateTimestamp = event.block.timestamp
   project.updateBlock = event.block.number
