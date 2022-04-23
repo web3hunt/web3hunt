@@ -1,11 +1,11 @@
-import { PROJECTS } from '../../constants/placeholders';
-import { Title } from '../atoms/Typography';
-import { ProjectCard } from '../molecules/ProjectCard';
-import { Container } from '../templates/Container';
-import { FilterButton } from '../atoms/Buttons';
-import { Categories, selectCategory } from '../filter';
-import { useQuery } from 'urql';
-import { QUERY } from '../../queries';
+import { PROJECTS } from "../../constants/placeholders";
+import { Title } from "../atoms/Typography";
+import { ProjectCard } from "../molecules/ProjectCard";
+import { Container } from "../templates/Container";
+import { FilterButton } from "../atoms/Buttons";
+import { Categories, selectCategory } from "../Filter";
+import { useQuery } from "urql";
+import { QUERY } from "../../queries";
 
 export const ProjectOverview = () => {
   const [result, reexecuteQuery] = useQuery({
