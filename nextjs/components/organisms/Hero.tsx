@@ -23,7 +23,7 @@ export const Hero = ({ pageProps }: AppProps) => {
       
           <Paragraph className="mb-8 font-semibold">
             {
-              "We specialise in non fungible token and user experience for websites. Ping us and let's build something epic together!"
+              "We focus on Web3 user experience. Ping us and let's build something epic together!"
             }
           </Paragraph>
           <div className="flex justify-center">
