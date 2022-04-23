@@ -1,5 +1,5 @@
 import {Bytes, log} from "@graphprotocol/graph-ts"
-import {createProject, upvoteProject} from "./lib/project"
+import {createProject, updateProject, upvoteProject} from "./lib/project"
 import {initWebsite} from "./lib/website"
 import {buildEntityIdFromEvent} from "./lib/utils"
 import {StateChange} from "../../generated/Web3HuntContentManager/Web3HuntContentManager";
@@ -37,5 +37,15 @@ export function handleStateChange(event: StateChange): void {
     const body = event.params.data.toHex().slice(6)
     const projectId = body.slice(0, 66)
     upvoteProject(eventAuthor, projectId, event)
+  }
+  // project update metadata
+  if (noun.toString() == "01" && verb.toString() == "02") {
+    const body = event.params.data.toHex().slice(6)
+    const projectId = body.slice(0, 66)
+    const metadata = body.slice(66)
+    const bytes = Bytes.fromHexString("0x1220" + metadata)
+    const metadataHash = encode(bytes)
+    log.debug("Updating project on projectId: {}, with ipfs metadata: {}", [projectId.toString(), metadataHash.toString()])
+    updateProject(eventAuthor, projectId, metadataHash, event)
   }
 }

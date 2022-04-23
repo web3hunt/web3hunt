@@ -1,4 +1,4 @@
-import {Project, SupporterProject, User, Website, WebsiteProject} from "../../../generated/schema";
+import {Project, ProjectMetadata, SupporterProject, User, Website, WebsiteProject} from "../../../generated/schema";
 import {buildMappingTableId} from "./utils";
 import {StateChange} from "../../../generated/Web3HuntContentManager/Web3HuntContentManager";
 import {log, store, ipfs, json} from "@graphprotocol/graph-ts";
@@ -25,8 +25,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
   }
   project = new Project(projectId)
   project.owner = owner
-  project.metadata = ipfsMetadata
-  // TODO parse metadata from ipfs and assign fields:
+
   log.debug("Getting metadata from ipfs {}", [ipfsMetadata])
   let data = ipfs.cat(ipfsMetadata)
   if (data === null) {
@@ -34,15 +33,12 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     return
   }
   log.debug("metadata found on IPFS {}", [ipfsMetadata])
-
   if (data.toString().slice(data.toString().length - 1, data.toString().length) != "}") {
     log.debug("skip parsing - metadata {} is not a JSON object", [ipfsMetadata])
     return;
   }
-
   log.debug("parsing metadata {}", [data.toString()])
   let valueWrapped = json.try_fromString(data.toString())
-
   if (valueWrapped.isError) {
     log.debug("metadata not valid JSON (string) {}", [ipfsMetadata])
     log.warning("metadata not valid JSON (string) {}", [ipfsMetadata])
@@ -87,8 +83,20 @@ export function createProject(owner : string, websiteId: string, projectId: stri
   websiteProject.project = projectId
   websiteProject.website = websiteId
 
+  // create projectMetadata entity
+  let projectMetadata = ProjectMetadata.load(buildMappingTableId(projectId, ipfsMetadata))
+  if (projectMetadata != null) {
+    log.debug("ProjectMetadata already exists {}", [buildMappingTableId(projectId, ipfsMetadata)] );
+    return
+  }
+  projectMetadata.project = projectId
+  projectMetadata.metadata = ipfsMetadata
+  projectMetadata.deployTimestamp = event.block.timestamp
+  projectMetadata.deployBlock = event.block.number
+
   project.save()
   websiteProject.save()
+  projectMetadata.save()
 
 }
 
@@ -116,4 +124,26 @@ export function upvoteProject(eventAuthor : string, projectId : string, event: S
   project.supportersCount = project.supportersCount.plus(ONE_BI)
   project.save()
   projectSupporter.save()
+}
+
+export function updateProject(eventAuthor : string, projectId : string, metadata: string, event: StateChange): void {
+  let project = Project.load(projectId)
+  if (project == null) return
+  // create projectMetadata entity
+  let projectMetadata = ProjectMetadata.load(buildMappingTableId(projectId, metadata))
+  if (projectMetadata != null) {
+    log.debug("ProjectMetadata already exists {}", [buildMappingTableId(projectId, metadata)] );
+    return
+  }
+  projectMetadata = new ProjectMetadata(buildMappingTableId(projectId, metadata))
+  projectMetadata.project = projectId
+  projectMetadata.metadata = metadata
+  projectMetadata.deployTimestamp = event.block.timestamp
+  projectMetadata.deployBlock = event.block.number
+
+  project.updateTimestamp = event.block.timestamp
+  project.updateBlock = event.block.number
+
+  project.save()
+  projectMetadata.save()
 }
