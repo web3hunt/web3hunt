@@ -1,10 +1,23 @@
 module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
   ],
-  theme: {
-    extend: {},
+  purge: {
+    content: ['./pages/**/*.tsx', './components/**/*.tsx'],
+    // These options are passed through directly to PurgeCSS
   },
-  plugins: [require("daisyui")],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#9ABDBF',
+        secondary: '#6E6EE7',
+      },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+        playfair: ['Playfair-Display', 'serif'],
+      },
+    },
+  },
+  plugins: [],
 };

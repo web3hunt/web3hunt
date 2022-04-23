@@ -1,0 +1,5 @@
+{
+    "network": "localhost",
+    "web3HuntContentManager": "TODO",
+    "startBlockWeb3HuntContentManager": 1
+}

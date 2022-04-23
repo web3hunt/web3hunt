@@ -1,0 +1,46 @@
+{
+  "name": "hardhat-starter",
+  "version": "1.0.0",
+  "description": "hardhat-starter",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "deploy:rinkeby": "hardhat deploy --network rinkeby",
+    "deploy:rinkeby:reset": "hardhat deploy --network rinkeby --reset",
+    "deploy:rinkeby:tag": "sh -c 'hardhat deploy --network rinkeby --tags ${0}'",
+    "deploy:rinkeby:tag:reset": "sh -c 'hardhat deploy --network rinkeby --tags ${0} --reset'"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
+    "@nomiclabs/hardhat-etherscan": "^2.1.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@typechain/ethers-v5": "^8.0.2",
+    "@typechain/hardhat": "^3.0.0",
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.10.1",
+    "chai": "^4.3.6",
+    "ethereum-waffle": "^3.4.0",
+    "hardhat-deploy": "^0.10.6",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solhint": "^3.3.4",
+    "solidity-coverage": "^0.7.17",
+    "ts-node": "^10.7.0",
+    "typechain": "^7.0.1",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
+    "@pinata/sdk": "^1.1.23",
+    "@urql/core": "^2.4.3",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.0.0",
+    "graphql": "^16.3.0",
+    "hardhat": "^2.8.4",
+    "isomorphic-unfetch": "^3.1.0"
+  },
+  "packageManager": "yarn@3.2.0"
+}

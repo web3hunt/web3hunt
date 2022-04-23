@@ -1,0 +1,8 @@
+{
+  "name": "EthGlobal",
+  "short_description": "EthGlobal demo project",
+  "description": "This is the best application ever, it codes itself and does everything you will ever need",
+  "category": "ethglobal",
+  "media": ["THIS IS BASE64 ENCODED IMAGE", "ANOTHER ONE"],
+  "metadata_type": "project_metadata"
+}

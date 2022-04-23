@@ -1,0 +1,24 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Web3HuntContentManager
+    network: {{ network }}
+    source:
+      address: "{{ web3HuntContentManager }}"
+      abi: Web3HuntContentManager
+      startBlock: {{ startBlockWeb3HuntContentManager }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - StateChange
+      abis:
+        - name: Web3HuntContentManager
+          file: ./abis/Web3HuntContentManager.json
+      eventHandlers:
+        - event: StateChange(address,bytes)
+          handler: handleStateChange
+      file: ./src/cms/web3HuntContentManager.ts
