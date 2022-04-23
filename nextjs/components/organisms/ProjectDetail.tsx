@@ -2,6 +2,11 @@ import { PROJECTS } from '../../constants/placeholders';
 import { PrimaryButton } from '../atoms/Buttons';
 import { Paragraph, Title } from '../atoms/Typography';
 import { Container } from '../templates/Container';
+import {useSigner} from "wagmi";
+import {CMSAction, WEB3_HUNT_CONTRACT} from "../../constants/api.const";
+import {ethers} from "ethers";
+import {WEB3HUNT_ABI} from "../../abis/Web3HuntContentManager";
+import {Web3HuntContentManager} from "../../types/Web3HuntContentManager";
 
 type Props = {
   id: string;
@@ -9,6 +14,24 @@ type Props = {
 
 export const ProjectDetail = ({ id }: Props) => {
   const project = PROJECTS[0];
+  const signer = useSigner();
+
+  const upvoteProject = async (id: string) => {
+    const action = CMSAction.UPVOTE_PROJECT;
+    const request = action + (id.toString().length === 1 ? '0' + id : id);
+    const requests = [request];
+    console.log('Creating project: ', requests);
+
+    const cmsContract = new ethers.Contract(
+      WEB3_HUNT_CONTRACT,
+      WEB3HUNT_ABI,
+      signer[0].data
+    ) as Web3HuntContentManager;
+
+    const response = await cmsContract.stateChange(requests);
+    console.log('Response: ', response.data);
+    console.log('TxHash: ', response.hash);
+  };
 
   return (
     <section id="project" className="mt-24">
@@ -46,7 +69,9 @@ export const ProjectDetail = ({ id }: Props) => {
               <span className="title-font font-medium text-2xl text-gray-900">
                 Owner:
               </span>
-              <PrimaryButton className="ml-auto">Upvote</PrimaryButton>
+              <PrimaryButton onClick={() => {
+                upvoteProject(project.id)
+              }} className="ml-auto">Upvote</PrimaryButton>
               <div className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 {project.votes}
               </div>

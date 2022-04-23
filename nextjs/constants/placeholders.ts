@@ -9,6 +9,7 @@ export type Project = {
 
 export const PROJECTS = [
   {
+    id: 1,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -16,6 +17,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 2,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -23,6 +25,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 3,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -30,6 +33,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 4,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -37,6 +41,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 5,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -44,6 +49,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 6,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -51,6 +57,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 7,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -58,6 +65,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 8,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -65,6 +73,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 9,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -72,6 +81,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 10,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -79,6 +89,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 11,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -86,6 +97,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 12,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -93,6 +105,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 13,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -100,6 +113,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 14,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -107,6 +121,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 15,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -114,6 +129,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 16,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -121,6 +137,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 17,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -128,6 +145,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 18,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -135,6 +153,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 19,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -142,6 +161,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 20,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -149,6 +169,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 21,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -156,6 +177,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 22,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -163,6 +185,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 23,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',
@@ -170,6 +193,7 @@ export const PROJECTS = [
     tags: ['Defi', 'Nft'],
   },
   {
+    id: 24,
     title: 'Placeholder Title',
     desc: 'Collections or one-of-a-kind tokens with fully customizable properties',
     image: '/assets/images/placeholder_image.png',

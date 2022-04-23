@@ -189,6 +189,8 @@ export function CreateProject() {
 
     if (!res.ok) throw new Error('Error creating project');
     const result = await res.json();
+    // test if ipfs is working
+    const ipfsRes = await fetch("https://ipfs.io/ipfs/" + result.IpfsHash);
     const onchainResult = await createProjectOnchain(
       result.IpfsHash,
       WEB3_HUNT_WEBSITE_RINKEBY
