@@ -1,8 +1,9 @@
-import Link from 'next/link';
-import { useState } from 'react';
-import { NavigationItems } from '../molecules/NavigationItems';
-import { WalletConnector } from '../molecules/WalletConnector';
-import { Container } from '../templates/Container';
+import Link from "next/link";
+import { useState } from "react";
+import { NavigationItems } from "../molecules/NavigationItems";
+import { Notifications } from "../molecules/Notifications";
+import { WalletConnector } from "../molecules/WalletConnector";
+import { Container } from "../templates/Container";
 
 export const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -13,7 +14,7 @@ export const Navigation = () => {
         <Container>
           <div className="flex h-16 w-full items-center justify-between">
             <div className="flex w-full items-center px-4 md:pl-0 ">
-              <Link href={'/'}>
+              <Link href={"/"}>
                 <a className="flex flex-row items-center justify-center">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary"></div>
                   <h1 className="title-font ml-4 hidden text-xl font-medium md:block">
@@ -36,12 +37,12 @@ export const Navigation = () => {
                 <div className="flex w-8 flex-col items-end">
                   <span
                     className={`block h-1 w-full rounded-full bg-zinc-800 transition-all ${
-                      navOpen ? 'translate-y-1 -rotate-45' : 'mb-2'
+                      navOpen ? "translate-y-1 -rotate-45" : "mb-2"
                     }`}
                   ></span>
                   <span
                     className={`block h-1 rounded-full bg-zinc-800 transition-all ${
-                      navOpen ? 'w-full rotate-45' : 'w-2/3'
+                      navOpen ? "w-full rotate-45" : "w-2/3"
                     }`}
                   ></span>
                 </div>
@@ -52,11 +53,12 @@ export const Navigation = () => {
           <div
             className={`left- fixed top-0 z-40 flex h-full w-full flex-col items-center justify-center text-center transition-all ${
               navOpen
-                ? 'bg-gradient-to-br from-gray-50 to-purple-50'
-                : 'hidden' + ' md:hidden'
+                ? "bg-gradient-to-br from-gray-50 to-purple-50"
+                : "hidden" + " md:hidden"
             }`}
           >
             <NavigationItems setNavOpen={setNavOpen}></NavigationItems>
+            <Notifications user="0xA3Fa175140C9779D5293e876a9c71Ef10A7a0bd2" />
           </div>
         </Container>
       </nav>
