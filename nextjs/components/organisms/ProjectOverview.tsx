@@ -4,9 +4,19 @@ import { ProjectCard } from '../molecules/ProjectCard';
 import { Container } from '../templates/Container';
 import { FilterButton } from '../atoms/Buttons';
 import { Categories, selectCategory } from '../filter';
-
+import { useQuery } from 'urql';
+import { QUERY } from '../../queries';
 
 export const ProjectOverview = () => {
+  const [result, reexecuteQuery] = useQuery({
+    query: QUERY,
+  });
+
+  if (!result.data) {
+    return <div></div>;
+  }
+  console.log(result.data.websites[0].projects[0].project);
+
   return (
     <section id="service" className="body-font ">
       <div className="mb-5 text-center">
@@ -25,11 +35,24 @@ export const ProjectOverview = () => {
           alt=""
         />
         <Container className="pb-24">
-          <div className="h-16 grid grid-cols-4 gap-4 content-center " role="group">
-            <FilterButton onClick={() => selectCategory(Categories.DEFI)}>{Categories.DEFI}</FilterButton>
-            <FilterButton onClick={() => selectCategory(Categories.NFT)}>{Categories.NFT}</FilterButton>
-            <FilterButton onClick={() => selectCategory(Categories.HOT)}>{Categories.HOT}</FilterButton>
-            <FilterButton onClick={() => selectCategory(Categories.YOURPROJECTS)}>{Categories.YOURPROJECTS}</FilterButton>
+          <div
+            className="h-16 grid grid-cols-4 gap-4 content-center "
+            role="group"
+          >
+            <FilterButton onClick={() => selectCategory(Categories.DEFI)}>
+              {Categories.DEFI}
+            </FilterButton>
+            <FilterButton onClick={() => selectCategory(Categories.NFT)}>
+              {Categories.NFT}
+            </FilterButton>
+            <FilterButton onClick={() => selectCategory(Categories.HOT)}>
+              {Categories.HOT}
+            </FilterButton>
+            <FilterButton
+              onClick={() => selectCategory(Categories.YOURPROJECTS)}
+            >
+              {Categories.YOURPROJECTS}
+            </FilterButton>
           </div>
 
           <div className="mb-5 ..."></div>
