@@ -39,17 +39,17 @@ export const ProjectOverview = () => {
             className="h-16 grid grid-cols-4 gap-4 content-center "
             role="group"
           >
-            <FilterButton onClick={() => selectCategory(Categories.DEFI)}>
+            <FilterButton onClick={() => selectCategory(result, Categories.DEFI)}>
               {Categories.DEFI}
             </FilterButton>
-            <FilterButton onClick={() => selectCategory(Categories.NFT)}>
+            <FilterButton onClick={() => selectCategory(result, Categories.NFT)}>
               {Categories.NFT}
             </FilterButton>
-            <FilterButton onClick={() => selectCategory(Categories.HOT)}>
+            <FilterButton onClick={() => selectCategory(result, Categories.HOT)}>
               {Categories.HOT}
             </FilterButton>
             <FilterButton
-              onClick={() => selectCategory(Categories.YOURPROJECTS)}
+              onClick={() => selectCategory(result, Categories.YOURPROJECTS)}
             >
               {Categories.YOURPROJECTS}
             </FilterButton>
@@ -57,14 +57,15 @@ export const ProjectOverview = () => {
 
           <div className="mb-5 ..."></div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {PROJECTS.map(({ title, desc, image, votes, tags }) => (
+            {result.data.websites[0].projects.map(({ project }: any) => (
               <ProjectCard
-                key={title}
-                title={title}
-                desc={desc}
-                image={image}
-                votes={votes}
-                tags={tags}
+                key={project.id}
+                id={project.id}
+                title={project.name}
+                desc={project.short_description}
+                image={project.imagePreview}
+                votes={project.supportersCount}
+                tags={project.tags}
               ></ProjectCard>
             ))}
           </div>

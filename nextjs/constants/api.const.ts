@@ -22,6 +22,7 @@ export enum CMSAction {
   UPVOTE_PROJECT = "0x0101",
   UPDATE_PROJECT = "0x0102",
 }
+
 export const SUBGRAPH_OPTIMISM_KOVAN =
   process.env.NEXT_PUBLIC_SUBGRAPH_OPTIMISM_KOVAN ||
   "https://api.thegraph.com/subgraphs/name/subgraphs/web3-hunt-optimistic-kovan";
@@ -34,3 +35,7 @@ export const SUBGRAPH_RINKEBY =
 
 export const EPNS_NOTIFICATIONS =
   "https://backend-kovan.epns.io/apis/feeds/get_feeds";
+
+export const PINATA_API_KEY = process.env.NEXT_PUBLIC_PINATA_API_KEY || "";
+export const PINATA_API_SECRET =
+  process.env.NEXT_PUBLIC_PINATA_API_SECRET || "";
