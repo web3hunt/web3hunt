@@ -89,6 +89,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     project.tags = tagsArray
   }
 
+  log.debug("metadata parsed, {}", [project.imagePreview])
   project.deployBlock = event.block.number
   project.deployTimestamp = event.block.timestamp
   project.txHash = event.transaction.hash
@@ -113,6 +114,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
   projectMetadata.deployTimestamp = event.block.timestamp
   projectMetadata.deployBlock = event.block.number
 
+  log.debug("saving project {}", [project.id])
   project.save()
   websiteProject.save()
   projectMetadata.save()
