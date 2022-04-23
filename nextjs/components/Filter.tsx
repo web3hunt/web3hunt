@@ -8,7 +8,7 @@ export type Project = {
   }
 
 export enum Categories {
-    DEFI = 'ethglobal',
+    DEFI = 'Defi',
     NFT = 'Nft',
     ALLPROJECTS = 'All Projects'
   }
