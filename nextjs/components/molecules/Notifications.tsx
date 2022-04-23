@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { EPNS_NOTIFICATIONS } from "../../constants/api.const";
 
-export const Notifications = (props: { user: string }) => {
+export const Notifications = (props: { user?: string }) => {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://backend-kovan.epns.io/apis/feeds/get_feeds", {
+    fetch(EPNS_NOTIFICATIONS, {
       method: "POST",
       body: JSON.stringify({
         user: props.user,
@@ -20,14 +21,22 @@ export const Notifications = (props: { user: string }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setData(data);
+        const notifications = data.results.map((result: any) => {
+          return {
+            title: result.payload.notification.title,
+            message: result.payload.notification.body,
+          };
+        });
+        setData(notifications);
         setLoading(false);
       });
   }, []);
 
-  if (isLoading) return <p>Loading Notifications</p>;
+  if (!props.user) {
+    return null;
+  }
+
   if (!data) return <p>No Notifications</p>;
 
-  return <div>New Notifications</div>;
+  return <div>{(data as any[]).length} Notifications</div>;
 };

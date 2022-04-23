@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import { useAccount } from "wagmi";
 import { NavigationItems } from "../molecules/NavigationItems";
 import { Notifications } from "../molecules/Notifications";
 import { WalletConnector } from "../molecules/WalletConnector";
@@ -7,6 +8,9 @@ import { Container } from "../templates/Container";
 
 export const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);
+  const [{ data: accountData }, disconnect] = useAccount({
+    fetchEns: false,
+  });
 
   return (
     <header>
@@ -24,6 +28,7 @@ export const Navigation = () => {
               </Link>
               <div className="hidden md:block">
                 <NavigationItems></NavigationItems>
+                <Notifications user={accountData?.address} />
               </div>
               <div className="ml-auto">
                 <WalletConnector />
@@ -58,7 +63,6 @@ export const Navigation = () => {
             }`}
           >
             <NavigationItems setNavOpen={setNavOpen}></NavigationItems>
-            <Notifications user="0xA3Fa175140C9779D5293e876a9c71Ef10A7a0bd2" />
           </div>
         </Container>
       </nav>
