@@ -76,6 +76,8 @@ export function CreateProject() {
     const response = await cmsContract.stateChange(requests);
     console.log('Response: ', response.data);
     console.log('TxHash: ', response.hash);
+    // close modal
+    ctx?.modalCtx.dispatch({type: 'close'})
   };
 
   const pickImageHandler = () => {
