@@ -3,7 +3,7 @@ import { PrimaryButton } from '../atoms/Buttons';
 import { Paragraph, Title } from '../atoms/Typography';
 import { Container } from '../templates/Container';
 import {useSigner} from "wagmi";
-import {CMSAction, WEB3_HUNT_CONTRACT} from "../../constants/api.const";
+import {CMSAction, WEB3_HUNT_CONTRACT, WEB3_HUNT_WEBSITE_RINKEBY} from "../../constants/api.const";
 import {ethers} from "ethers";
 import {WEB3HUNT_ABI} from "../../abis/Web3HuntContentManager";
 import {Web3HuntContentManager} from "../../types/Web3HuntContentManager";
@@ -13,6 +13,30 @@ type Props = {
 };
 
 export const ProjectDetail = ({ id }: Props) => {
+  const QUERY_PROJECT = `
+{
+    projects(where: {id: ${id}"}) {
+        id
+        owner {
+          id
+        }
+        name
+        short_description
+        imagePreview
+        metadata {
+          id
+          deployBlock
+          deployTimestamp
+        }
+        supportersCount
+        tags
+        deployBlock
+        deployTimestamp
+        updateBlock
+        updateTimestamp
+      }
+    }
+`;
   const project = PROJECTS[0];
   const signer = useSigner();
 
