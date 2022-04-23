@@ -20,9 +20,14 @@ export const ProjectCard = ({ id, title, desc, image, votes, tags }: Props) => {
         <div className="flex relative w-full min-h-[200px] items-center space-x-4 lg:flex-col lg:items-start lg:space-x-0">
           <img
             className="w-full h-full object-cover"
-            src={image.startsWith('Qm') ? `https://ipfs.io/ipfs/${image}` : `https://ipfs.io/ipfs/${image}/regular`}
+            src={
+              image.startsWith('Qm')
+                ? `https://ipfs.io/ipfs/${image}`
+                : `https://ipfs.io/ipfs/${image}/regular`
+            }
             alt={title}
           />
+
           <div className="absolute flex items-center justify-center h-12 w-12 top-2 right-2 rounded-full bg-[#1528684d] backdrop-blur">
             {votes}
           </div>
@@ -40,7 +45,7 @@ export const ProjectCard = ({ id, title, desc, image, votes, tags }: Props) => {
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 w-full">
           <SubTitle className="mb-2 text-left text-2xl text-gray-50">
             {title}
           </SubTitle>
