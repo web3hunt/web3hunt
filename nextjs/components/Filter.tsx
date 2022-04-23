@@ -1,4 +1,10 @@
-import { Project } from "../constants/placeholders"
+type Project = {
+    title: string;
+    desc: string;
+    image: string;
+    votes: number,
+    tags: Array<string>
+  }
 
 export enum Categories {
     DEFI = 'Defi',
