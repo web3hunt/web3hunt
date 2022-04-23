@@ -141,6 +141,12 @@ export function updateProject(eventAuthor : string, projectId : string, metadata
   let project = Project.load(projectId)
   if (project == null) return
 
+  // check if eventAuthor is owner of project
+  if (project.owner != eventAuthor) {
+    log.debug("eventAuthor {} is not owner of project {}", [eventAuthor, projectId])
+    return
+  }
+
   log.debug("Getting metadata from ipfs {}", [metadata])
   let data = ipfs.cat(metadata)
   if (data === null) {
