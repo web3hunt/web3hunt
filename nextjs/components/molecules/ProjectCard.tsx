@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Paragraph, SubTitle } from '../atoms/Typography';
 
 type Props = {

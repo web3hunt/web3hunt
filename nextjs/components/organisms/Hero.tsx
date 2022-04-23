@@ -2,7 +2,6 @@ import type { AppProps } from 'next/app';
 import { PrimaryButton } from '../atoms/Buttons';
 import { Paragraph, Title } from '../atoms/Typography';
 import { Container } from '../templates/Container';
-import { Wagmi } from '../Wagmi';
 import { Upload } from '../Upload';
 
 export const Hero = ({ pageProps }: AppProps) => {
@@ -30,9 +29,7 @@ export const Hero = ({ pageProps }: AppProps) => {
           <div className="flex justify-center">
             <PrimaryButton>Create Project</PrimaryButton>
           </div>
-          <div className="flex justify-center">
-            <Wagmi {...pageProps} />
-          </div>
+          <div className="flex justify-center"></div>
           <div className="flex justify-center">
             <Upload {...pageProps} />
           </div>
