@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Web3HuntContentManager.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.10;\n\ncontract Web3HuntContentManager {\n\n    event StateChange(\n        address author,\n        bytes data\n    );\n\n    function stateChange(bytes[] calldata data_) external {\n        for (uint256 i_ = 0; i_ < data_.length; i_++) {\n            emit StateChange(msg.sender, data_[i_]);\n        }\n    }\n\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

@@ -2,11 +2,14 @@ import { PROJECTS } from '../../constants/placeholders';
 import { Title } from '../atoms/Typography';
 import { ProjectCard } from '../molecules/ProjectCard';
 import { Container } from '../templates/Container';
+import { FilterButton } from '../atoms/Buttons';
+import { Categories, selectCategory } from '../filter';
 
-export const Projects = () => {
+
+export const ProjectOverview = () => {
   return (
     <section id="service" className="body-font ">
-      <div className="mb-20 text-center">
+      <div className="mb-5 text-center">
         <Title>
           <span className="bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
             Projects
@@ -22,6 +25,14 @@ export const Projects = () => {
           alt=""
         />
         <Container className="pb-24">
+          <div className="h-16 grid grid-cols-4 gap-4 content-center " role="group">
+            <FilterButton onClick={() => selectCategory(Categories.DEFI)}>{Categories.DEFI}</FilterButton>
+            <FilterButton onClick={() => selectCategory(Categories.NFT)}>{Categories.NFT}</FilterButton>
+            <FilterButton onClick={() => selectCategory(Categories.HOT)}>{Categories.HOT}</FilterButton>
+            <FilterButton onClick={() => selectCategory(Categories.YOURPROJECTS)}>{Categories.YOURPROJECTS}</FilterButton>
+          </div>
+
+          <div className="mb-5 ..."></div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {PROJECTS.map(({ title, desc, image, votes, tags }) => (
               <ProjectCard

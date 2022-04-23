@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { NavigationItems } from '../molecules/NavigationItems';
+import { WalletConnector } from '../molecules/WalletConnector';
 import { Container } from '../templates/Container';
 
 export const Navigation = () => {
@@ -11,7 +12,7 @@ export const Navigation = () => {
       <nav className="py-4">
         <Container>
           <div className="flex h-16 w-full items-center justify-between">
-            <div className="flex items-center px-4 md:pl-0 ">
+            <div className="flex w-full items-center px-4 md:pl-0 ">
               <Link href={'/'}>
                 <a className="flex flex-row items-center justify-center">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary"></div>
@@ -22,6 +23,9 @@ export const Navigation = () => {
               </Link>
               <div className="hidden md:block">
                 <NavigationItems></NavigationItems>
+              </div>
+              <div className="ml-auto">
+                <WalletConnector />
               </div>
             </div>
             <div className="flex md:hidden">
