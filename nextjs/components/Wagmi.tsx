@@ -1,10 +1,10 @@
 import type { AppProps } from 'next/app';
 import React from "react";
-import { PrimaryButton } from '../components/atoms/Buttons';
+import { PrimaryButton } from './atoms/Buttons';
 import { SiweMessage } from "siwe";
 import { useAccount, useConnect, useNetwork, useSignMessage } from "wagmi";
 
-export function Login({ pageProps }: AppProps) {
+export function Wagmi({ pageProps }: AppProps) {
   const [{ data: accountData }] = useAccount({
     fetchEns: false,
   });
