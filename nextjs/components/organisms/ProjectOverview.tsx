@@ -1,17 +1,18 @@
-import { Title } from "../atoms/Typography";
-import { ProjectCard } from "../molecules/ProjectCard";
-import { Container } from "../templates/Container";
-import { FilterButton } from "../atoms/Buttons";
-import { Categories, selectCategory, Project } from "../Filter";
-import { useQuery } from "urql";
-import { QUERY } from "../../queries";
-import { useState } from "react";
+import { Title } from '../atoms/Typography';
+import { ProjectCard } from '../molecules/ProjectCard';
+import { Container } from '../templates/Container';
+import { FilterButton } from '../atoms/Buttons';
+import { Categories, selectCategory, Project } from '../Filter';
+import { useQuery } from 'urql';
+import { QUERY } from '../../queries';
+import { useState } from 'react';
+import Link from 'next/link';
 
 export const ProjectOverview = () => {
   const [result, reexecuteQuery] = useQuery({
     query: QUERY,
   });
-  const [filterApplied, setFilterApplied] = useState(false)
+  const [filterApplied, setFilterApplied] = useState(false);
   const [filter, setFilter] = useState<Project[]>([]);
 
   if (!result.data) {
@@ -21,10 +22,10 @@ export const ProjectOverview = () => {
 
   let projects;
 
-  if(filterApplied) {
+  if (filterApplied) {
     projects = filter;
   } else {
-    projects = selectCategory(result, null)
+    projects = selectCategory(result, null);
   }
   return (
     <section id="service" className="body-font ">
@@ -48,38 +49,47 @@ export const ProjectOverview = () => {
             className="h-16 grid grid-cols-3 gap-4 content-center "
             role="group"
           >
-            <FilterButton onClick={() => {
-              setFilter(selectCategory(result, Categories.DEFI));
-              setFilterApplied(true)
-            }}>
+            <FilterButton
+              onClick={() => {
+                setFilter(selectCategory(result, Categories.DEFI));
+                setFilterApplied(true);
+              }}
+            >
               {Categories.DEFI}
             </FilterButton>
-            <FilterButton onClick={() => {
-              setFilter(selectCategory(result, Categories.NFT));
-              setFilterApplied(true)
-            }}>
+            <FilterButton
+              onClick={() => {
+                setFilter(selectCategory(result, Categories.NFT));
+                setFilterApplied(true);
+              }}
+            >
               {Categories.NFT}
             </FilterButton>
-            <FilterButton onClick={() => {
-              setFilter(selectCategory(result, null));
-              setFilterApplied(true)
-            }}>
+            <FilterButton
+              onClick={() => {
+                setFilter(selectCategory(result, null));
+                setFilterApplied(true);
+              }}
+            >
               {Categories.ALLPROJECTS}
             </FilterButton>
           </div>
 
           <div className="mb-5 ..."></div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project : any) => (
-              <ProjectCard
-                key={project.id}
-                id={project.id}
-                title={project.title}
-                desc={project.desc}
-                image={project.image}
-                votes={project.votes}
-                tags={project.tags}
-              ></ProjectCard>
+            {projects.map((project: any) => (
+              <Link key={project.id} href={`projects/${project.id}`}>
+                <a>
+                  <ProjectCard
+                    id={project.id}
+                    title={project.title}
+                    desc={project.desc}
+                    image={project.image}
+                    votes={project.votes}
+                    tags={project.tags}
+                  ></ProjectCard>
+                </a>
+              </Link>
             ))}
           </div>
         </Container>
