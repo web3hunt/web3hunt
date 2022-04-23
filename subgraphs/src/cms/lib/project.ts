@@ -41,7 +41,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     log.debug("Waiting for ipfs data {}", [counter.toString()])
     counter++
     data = ipfs.cat(ipfsMetadata)
-    if (counter > 10) {
+    if (counter > 20) {
       log.debug("Failed to get metadata from ipfs {}", [ipfsMetadata])
       return
     }
