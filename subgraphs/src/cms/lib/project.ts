@@ -62,13 +62,23 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     project.name = name.toString()
   }
 
-  let category = jsonObject.get("category")
-  if (category != null) {
-    log.debug("category {}", [category.toString()])
-    project.category = category.toString()
+  let imagePreview = jsonObject.get("imagePreview")
+  if (imagePreview != null) {
+    log.debug("imagePreview {}", [imagePreview.toString()])
+    project.imagePreview = imagePreview.toString()
+  }
+
+  let tags = jsonObject.get("tags")
+  if (!tags) {
+    log.debug("metadata is missing tags", [])
   } else {
-    log.debug("category not found, defaulting to 'other'", [])
-    project.category = "other"
+    let tagsArray = new Array<string>()
+    let tagsList = tags.toArray()
+    for (let i = 0; i < tagsList.length ; i++){
+      tagsArray.push(tagsList[i].toString())
+    }
+    log.debug("tags {}", [tagsArray.toString()])
+    project.tags = tagsArray
   }
 
   project.deployBlock = event.block.number
@@ -167,13 +177,23 @@ export function updateProject(eventAuthor : string, projectId : string, metadata
     project.name = name.toString()
   }
 
-  let category = jsonObject.get("category")
-  if (category != null) {
-    log.debug("category {}", [category.toString()])
-    project.category = category.toString()
+  let imagePreview = jsonObject.get("imagePreview")
+  if (imagePreview != null) {
+    log.debug("imagePreview {}", [imagePreview.toString()])
+    project.imagePreview = imagePreview.toString()
+  }
+
+  let tags = jsonObject.get("tags")
+  if (!tags) {
+    log.debug("metadata is missing tags", [])
   } else {
-    log.debug("category not found, defaulting to 'other'", [])
-    project.category = "other"
+    let tagsArray = new Array<string>()
+    let tagsList = tags.toArray()
+    for (let i = 0; i < tagsList.length ; i++){
+      tagsArray.push(tagsList[i].toString())
+    }
+    log.debug("tags {}", [tagsArray.toString()])
+    project.tags = tagsArray
   }
 
   // create projectMetadata entity

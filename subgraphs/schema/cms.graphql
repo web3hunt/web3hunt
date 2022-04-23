@@ -31,7 +31,9 @@ type Project @entity {
   "project description, if content with such data is linked to the project"
   short_description: String!
   "project category - e.g. 'defi', 'ethAmsterdam', 'web3-social' etc."
-  category: String!
+  tags: [String!]!
+  "image preview - IPFS string"
+  imagePreview: String!
 
   deployBlock: BigInt!
   deployTimestamp: BigInt!
