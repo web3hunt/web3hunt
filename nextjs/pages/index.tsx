@@ -9,10 +9,11 @@ import {CMSAction, WEB3_HUNT_CONTRACT} from "../constants/api.const";
 import base58 from "bs58";
 import {useQuery} from "urql";
 import {useEffect} from "react";
+import {WEB3_HUNT_WEBSITE_RINKEBY} from "../constants/api.const"
 
 const QUERY = `
 {
-  websites (where: {id: "009530022bae066aaab54e8d0ebe05359f355162ffb816205877355cfcd2d557bc"}) {
+  websites (where: {id: "${WEB3_HUNT_WEBSITE_RINKEBY}"}) {
     id
     projects {
       project {
