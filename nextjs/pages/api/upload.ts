@@ -17,7 +17,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const client = new Web3Storage({ token: `${getAccessToken()}` })
       try {
         var filecoinUpload = await client.put([payloadFile], {
-          name: fileName,
           maxRetries: 3
         })
         res.setHeader("Content-Type", "text/plain");
