@@ -18,6 +18,7 @@ import {
 import {WEB3HUNT_ABI} from '../../abis/Web3HuntContentManager';
 import {Web3HuntContentManager} from '../../types/Web3HuntContentManager';
 import {ethers} from 'ethers';
+import {toast} from "react-toastify";
 
 export function CreateProject() {
   const [{data: accountData}] = useAccount({
@@ -124,6 +125,8 @@ export function CreateProject() {
   }
 
   const createProject = async (event: any) => {
+
+    toast.info('Creating project...');
     event.preventDefault();
 
     const tags = event.target.tags.value.split(', ');
@@ -142,7 +145,7 @@ export function CreateProject() {
       });
       imagePreviewCID = await previewRes.text();
     }
-
+    toast.info('Uploaded preview image...');
     const base64result = await Promise.all(media.map(m => {
       return getBase64(m)
     }))
@@ -162,7 +165,7 @@ export function CreateProject() {
         }
       )
     }))
-
+    toast.info('Uploaded media files...');
     const mediaCIDs = await Promise.all(mediaCIDsResponse.map(m => {
       return m.text()
     }))
@@ -188,15 +191,17 @@ export function CreateProject() {
         })
       }
     )
-
+    toast.info('Uploaded data to ipfs');
     if (!res.ok) throw new Error('Error creating project');
     const result = await res.json();
     // test if ipfs is working
+    toast.info('Verifying data is on ipfs');
     const ipfsRes = await fetch("https://ipfs.io/ipfs/" + result.IpfsHash);
     const onchainResult = await createProjectOnchain(
       result.IpfsHash,
       WEB3_HUNT_WEBSITE_RINKEBY
     );
+    toast.info('Project created onchain, wait for it to appear in project list');
     console.log('onchainResult', onchainResult);
     console.log(result);
     // result.user => 'Ada Lovelace'
