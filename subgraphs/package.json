@@ -3,17 +3,20 @@
   "license": "UNLICENSED",
   "scripts": {
     "generate-schema": "cat schema/* > schema.graphql",
-    "prepare:rinkeby": "yarn mustache config/rinkeby.json subgraph.template.yaml subgraph.yaml",
-    "prepare:rinkeby:test": "yarn mustache config/rinkeby-test.json subgraph.template.yaml subgraph.yaml --test",
-    "prepare:rinkeby:test-2": "yarn mustache config/rinkeby-test-2.json subgraph.template.yaml subgraph.yaml --test",
-    "prepare:goerli": "yarn mustache config/optimism-goerli.json subgraph.template.yaml subgraph.yaml",
-    "prepare:local": "yarn mustache config/local.json subgraph.template.yaml subgraph.yaml",
-    "prepare:mumbai": "yarn mustache config/mumbai.json subgraph.template.yaml subgraph.yaml",
     "codegen": "graph codegen subgraph.yaml",
     "build": "graph build",
-    "deploy:web3hunt:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ web3hunt/web3hunt subgraph.yaml",
-    "deploy:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ grmkris/hello-world-cms-rinkeby subgraph.yaml",
+    "prepare:rinkeby": "yarn mustache config/rinkeby.json subgraph.template.yaml subgraph.yaml",
+    "prepare:mumbai": "yarn mustache config/optimism-kovan.json subgraph.template.yaml subgraph.yaml",
+    "prepare:optimism-kovan": "yarn mustache config/mumbai.json subgraph.template.yaml subgraph.yaml",
+
+    "deploy:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ web3hunt/web3hunt subgraph.yaml",
+    "deploy:mumbai": "graph deploy --node https://api.thegraph.com/deploy/ web3hunt/web3-hunt-polygon-mumbai subgraph.yaml",
+    "deploy:optimism-kovan": "graph deploy --node https://api.thegraph.com/deploy/ web3hunt/web3-hunt-optimistic-kovan subgraph.yaml",
+
     "generate-and-deploy:rinkeby": "yarn generate-schema && yarn prepare:rinkeby && yarn codegen && yarn build && yarn deploy:rinkeby",
+    "generate-and-deploy:mumbai": "yarn generate-schema && yarn prepare:mumbai && yarn codegen && yarn build && yarn deploy:mumbai",
+    "generate-and-deploy:optimism-kovan": "yarn generate-schema && yarn prepare:optimism-kovan && yarn codegen && yarn build && yarn deploy:optimism-kovan",
+
     "create-local": "graph create --node http://localhost:8020/ TIDV/indexer",
     "remove-local": "graph remove --node http://localhost:8020/ TIDV/indexer"
   },
