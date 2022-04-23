@@ -1,12 +1,12 @@
-import type { NextPage } from 'next';
+import type { AppProps } from 'next/app';
 import { Hero } from '../components/organisms/Hero';
 import { Projects } from '../components/organisms/Projects';
 import Layout from '../components/templates/Layout';
 
-const Home: NextPage = () => {
+function Home({ pageProps }: AppProps) {
   return (
     <Layout title="Home">
-      <Hero></Hero>
+      <Hero {...pageProps}></Hero>
       <Projects></Projects>
     </Layout>
   );
