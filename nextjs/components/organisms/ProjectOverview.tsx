@@ -3,9 +3,9 @@ import { Title } from '../atoms/Typography';
 import { ProjectCard } from '../molecules/ProjectCard';
 import { Container } from '../templates/Container';
 import { FilterButton } from '../atoms/Buttons';
-import { Categories, selectCategory } from '../filter';
 import { useQuery } from 'urql';
 import { QUERY } from '../../queries';
+import { Categories, selectCategory } from '../Filter';
 
 export const ProjectOverview = () => {
   const [result, reexecuteQuery] = useQuery({
@@ -39,17 +39,17 @@ export const ProjectOverview = () => {
             className="h-16 grid grid-cols-4 gap-4 content-center "
             role="group"
           >
-            <FilterButton onClick={() => selectCategory(Categories.DEFI)}>
+            <FilterButton onClick={() => selectCategory(result, Categories.DEFI)}>
               {Categories.DEFI}
             </FilterButton>
-            <FilterButton onClick={() => selectCategory(Categories.NFT)}>
+            <FilterButton onClick={() => selectCategory(result, Categories.NFT)}>
               {Categories.NFT}
             </FilterButton>
-            <FilterButton onClick={() => selectCategory(Categories.HOT)}>
+            <FilterButton onClick={() => selectCategory(result, Categories.HOT)}>
               {Categories.HOT}
             </FilterButton>
             <FilterButton
-              onClick={() => selectCategory(Categories.YOURPROJECTS)}
+              onClick={() => selectCategory(result, Categories.YOURPROJECTS)}
             >
               {Categories.YOURPROJECTS}
             </FilterButton>
