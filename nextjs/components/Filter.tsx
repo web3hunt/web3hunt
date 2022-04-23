@@ -13,6 +13,14 @@ export enum Categories {
     YOURPROJECTS = 'Your projects'
   }
 
+function sortVotesDesc(a: Project, b: Project){
+    return b.votes - a.votes;
+}
+
+function sortFromHottest(allProjects: Array<Project>) {
+    return allProjects.sort(sortVotesDesc)
+}
+
 function getAllProjects(result: any) {
     var allProjects: Array<Project> = [];
     if (!result.data) {
@@ -34,6 +42,7 @@ function getAllProjects(result: any) {
 export function selectCategory(result: any, category: Categories) {
     var projectsInCategory: Array<Project> = [];
     var AllProjects: Array<Project> = getAllProjects(result)
+    AllProjects = sortFromHottest(AllProjects)
     AllProjects.forEach( (project) => {
         if (project.tags.includes(category)){
             projectsInCategory.push(project);
