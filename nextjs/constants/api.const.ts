@@ -22,3 +22,7 @@ export enum CMSAction {
 export const SUBGRAPH_OPTIMISM_KOVAN=process.env.NEXT_PUBLIC_SUBGRAPH_OPTIMISM_KOVAN || "https://api.thegraph.com/subgraphs/name/subgraphs/web3-hunt-optimistic-kovan"
 export const SUBGRAPH_MUMBAI=process.env.NEXT_PUBLIC_SUBGRAPH_MUMBAI || "https://api.thegraph.com/subgraphs/name/web3hunt/web3-hunt-polygon-mumbai"
 export const SUBGRAPH_RINKEBY=process.env.NEXT_PUBLIC_SUBGRAPH_RINKEBY || "https://api.thegraph.com/subgraphs/name/web3hunt/web3hunt"
+
+
+export const PINATA_API_KEY = process.env.NEXT_PUBLIC_PINATA_API_KEY || "";
+export const PINATA_API_SECRET = process.env.NEXT_PUBLIC_PINATA_API_SECRET || "";

@@ -13,13 +13,36 @@ export enum Categories {
     YOURPROJECTS = 'Your projects'
   }
 
-function getAllProjects() {
-    return []
+function sortVotesDesc(a: Project, b: Project){
+    return b.votes - a.votes;
 }
 
-export function selectCategory(category: Categories){
+function sortFromHottest(allProjects: Array<Project>) {
+    return allProjects.sort(sortVotesDesc)
+}
+
+function getAllProjects(result: any) {
+    var allProjects: Array<Project> = [];
+    if (!result.data) {
+        return allProjects;
+    }
+    result.data.websites[0].projects.forEach( (project: any) => {
+        let proj: Project = {
+            title: project.project.name,
+            tags: project.project.tags,
+            desc: project.project.short_description,
+            votes: project.project.supportersCount,
+            image: project.project.imagePreview
+        }
+        allProjects.push(proj)
+    })
+    return allProjects
+}
+
+export function selectCategory(result: any, category: Categories) {
     var projectsInCategory: Array<Project> = [];
-    var AllProjects: Array<Project> = getAllProjects()
+    var AllProjects: Array<Project> = getAllProjects(result)
+    AllProjects = sortFromHottest(AllProjects)
     AllProjects.forEach( (project) => {
         if (project.tags.includes(category)){
             projectsInCategory.push(project);
