@@ -11,7 +11,17 @@
     "deploy:rinkeby": "hardhat deploy --network rinkeby",
     "deploy:rinkeby:reset": "hardhat deploy --network rinkeby --reset",
     "deploy:rinkeby:tag": "sh -c 'hardhat deploy --network rinkeby --tags ${0}'",
-    "deploy:rinkeby:tag:reset": "sh -c 'hardhat deploy --network rinkeby --tags ${0} --reset'"
+    "deploy:rinkeby:tag:reset": "sh -c 'hardhat deploy --network rinkeby --tags ${0} --reset'",
+
+    "deploy:mumbai": "hardhat deploy --network mumbai",
+    "deploy:mumbai:reset": "hardhat deploy --network mumbai --reset",
+    "deploy:mumbai:tag": "sh -c 'hardhat deploy --network mumbai --tags ${0}'",
+    "deploy:mumbai:tag:reset": "sh -c 'hardhat deploy --network mumbai --tags ${0} --reset'",
+
+    "deploy:optimism_kovan": "hardhat deploy --network optimism_kovan",
+    "deploy:optimism_kovan:reset": "hardhat deploy --network optimism_kovan --reset",
+    "deploy:optimism_kovan:tag": "sh -c 'hardhat deploy --network optimism_kovan --tags ${0}'",
+    "deploy:optimism_kovan:tag:reset": "sh -c 'hardhat deploy --network optimism_kovan --tags ${0} --reset'"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",

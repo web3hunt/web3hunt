@@ -15,18 +15,15 @@ export const Hero = ({ pageProps }: AppProps) => {
         />
         <div className="mb-16 flex flex-col items-center text-center lg:mb-0 lg:w-1/2 lg:flex-grow lg:items-start lg:pr-24 lg:pr-16 lg:text-left">
           <Title className="lg:text-5xl xl:text-7xl">
-            Show Your{' '}
+            Upvote Your Favorite{' '}
             <span className="bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
               Projects
             </span>
           </Title>
-          <h2 className="mb-4 font-poppins text-base font-bold text-zinc-800 xl:text-xl">
-            Let the community upvote your projects and get visability
-          </h2>
-
+      
           <Paragraph className="mb-8 font-semibold">
             {
-              "We specialise in non fungible token and user experience for websites. Ping us and let's build something epic together!"
+              "We focus on Web3 user experience. Ping us and let's build something epic together!"
             }
           </Paragraph>
           <div className="flex justify-center">

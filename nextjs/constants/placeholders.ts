@@ -1,3 +1,12 @@
+
+export type Project = {
+  title: string;
+  desc: string;
+  image: string;
+  votes: number,
+  tags: Array<string>
+}
+
 export const PROJECTS = [
   {
     title: 'Placeholder Title',

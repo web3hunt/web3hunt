@@ -94,4 +94,43 @@ export const tasks = () => {
       console.log("Response: ", response);
       console.log("TxHash: ", response.hash);
     });
+
+  task("update-project", "Updates project with new metadata")
+    .addParam("project", "The project id to update")
+    .addParam("metadata", "The metadata of the project - ipfs hash")
+    .setAction(async (args, hre) => {
+      const {project, metadata} = args;
+      const { deployments, getNamedAccounts } = hre;
+      const web3HuntContentManagerContract = await deployments.get("Web3HuntContentManager");
+      console.log("web3HuntContentManagerContract.address: ", web3HuntContentManagerContract.address)
+      const cmsContract = await hre.ethers.getContractAt(
+        "Web3HuntContentManager",
+        web3HuntContentManagerContract.address
+      ) as Web3HuntContentManager;
+
+      if (metadata === undefined || metadata === "") {
+        throw new Error("Metadata is required");
+      }
+      if (project === undefined || project === "") {
+        throw new Error("Website id is required");
+      }
+
+      // parse ipfs metadata to bytes
+      console.log(metadata)
+      const ipfsHashesBinary = metadata.split("_").map((ipfsHashB58: string) => base58.decode(ipfsHashB58));
+      console.log(ipfsHashesBinary)
+      const ipfsHashesDecoded = ipfsHashesBinary.map((ipfsHashBinary: string) => new Buffer(ipfsHashBinary).toString('hex'));
+      console.log(ipfsHashesDecoded)
+      const ipfsHashes = ipfsHashesDecoded.map((ipfsHashDecoded: string | any[]) => ipfsHashDecoded.slice(4, ipfsHashDecoded.length))
+      console.log(ipfsHashes)
+
+
+      const action = Action.UPDATE_PROJECT;
+      const request = action + project + ipfsHashes
+      const requests = [request];
+      console.log("Creating project: ", requests);
+      const response = await cmsContract.stateChange(requests);
+      console.log("Response: ", response);
+      console.log("TxHash: ", response.hash);
+    });
 }
