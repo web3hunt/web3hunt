@@ -36,11 +36,21 @@ export function createProject(owner : string, websiteId: string, projectId: stri
 
   log.debug("Getting metadata from ipfs {}", [ipfsMetadata])
   let data = ipfs.cat(ipfsMetadata)
-  if (data === null) {
+  let counter = 0
+  while (!data) {
+    log.debug("Waiting for ipfs data {}", [counter.toString()])
+    counter++
+    data = ipfs.cat(ipfsMetadata)
+    if (counter > 20) {
+      log.debug("Failed to get metadata from ipfs {}", [ipfsMetadata])
+      return
+    }
+  }
+  if (!data) {
     log.warning("metadata {} not found on IPFS", [ipfsMetadata])
     return
   }
-  log.debug("metadata found on IPFS {}", [ipfsMetadata])
+  log.debug("metadata found on IPFS {} number of tries: {}", [ipfsMetadata, counter.toString()])
   if (data.toString().slice(data.toString().length - 1, data.toString().length) != "}") {
     log.debug("skip parsing - metadata {} is not a JSON object", [ipfsMetadata])
     return;
@@ -89,6 +99,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     project.tags = tagsArray
   }
 
+  log.debug("metadata parsed, {}", [project.imagePreview])
   project.deployBlock = event.block.number
   project.deployTimestamp = event.block.timestamp
   project.txHash = event.transaction.hash
@@ -113,6 +124,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
   projectMetadata.deployTimestamp = event.block.timestamp
   projectMetadata.deployBlock = event.block.number
 
+  log.debug("saving project {}", [project.id])
   project.save()
   websiteProject.save()
   projectMetadata.save()
