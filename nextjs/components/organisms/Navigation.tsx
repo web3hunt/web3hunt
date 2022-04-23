@@ -17,7 +17,7 @@ export const Navigation = () => {
                 <a className="flex flex-row items-center justify-center">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary"></div>
                   <h1 className="title-font ml-4 hidden text-xl font-medium md:block">
-                    Web3Hunt
+                    DappHunter
                   </h1>
                 </a>
               </Link>

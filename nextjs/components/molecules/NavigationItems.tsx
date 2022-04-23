@@ -17,21 +17,9 @@ export const NavigationItems = ({ setNavOpen }: Props) => {
         setNavOpen={setNavOpen}
       ></NavigationItem>
       <NavigationItem
-        title="Service"
-        active={router.pathname === '#service'}
+        title="Projects"
+        active={router.pathname === '#projects'}
         href="service"
-        setNavOpen={setNavOpen}
-      ></NavigationItem>
-      <NavigationItem
-        title="Team"
-        active={router.pathname === '#team'}
-        href="team"
-        setNavOpen={setNavOpen}
-      ></NavigationItem>
-      <NavigationItem
-        title="Our Work"
-        active={router.pathname === '#work'}
-        href="work"
         setNavOpen={setNavOpen}
       ></NavigationItem>
     </div>
