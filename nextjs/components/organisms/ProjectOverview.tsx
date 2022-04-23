@@ -3,7 +3,7 @@ import { Title } from '../atoms/Typography';
 import { ProjectCard } from '../molecules/ProjectCard';
 import { Container } from '../templates/Container';
 
-export const Projects = () => {
+export const ProjectOverview = () => {
   return (
     <section id="service" className="body-font ">
       <div className="mb-20 text-center">
