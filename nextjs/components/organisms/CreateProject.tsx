@@ -1,12 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useAccount } from "wagmi";
+import {useAccount, useContract, useProvider, useSigner, useContractWrite} from "wagmi";
 import { PrimaryButton } from '../atoms/Buttons';
 import Popup from 'reactjs-popup';
+import base58 from "bs58";
+import {CMSAction, WEB3_HUNT_CONTRACT, WEB3_HUNT_WEBSITE_RINKEBY} from "../../constants/api.const";
+import {WEB3HUNT_ABI} from "../../abis/Web3HuntContentManager";
+import {Web3HuntContentManager} from "../../types/Web3HuntContentManager";
+import {ethers} from "ethers";
 
 export function CreateProject() {
   const [{ data: accountData }] = useAccount({
     fetchEns: false,
   });
+  const signer = useSigner();
+
+  const [{ data, error, loading }, write] = useContractWrite(
+    {
+      addressOrName: WEB3_HUNT_CONTRACT,
+      contractInterface: WEB3HUNT_ABI,
+    },
+    'stateChange',
+  )
 
   const [state, setState] = React.useState<{
     content?: string;
@@ -17,6 +31,50 @@ export function CreateProject() {
 
   const filePickerRef = useRef<HTMLInputElement>(null);
   const filePickerRefMedia = useRef<HTMLInputElement>(null);
+
+  const createProjectOnchain = async (metadata: string, website: string) => {
+    if (metadata === undefined || metadata === '') {
+      throw new Error('Metadata is required');
+    }
+    if (website === undefined || website === '') {
+      throw new Error('Website id is required');
+    }
+
+    // parse ipfs metadata to bytes
+    console.log(metadata);
+    const ipfsHashesBinary = metadata
+      .split('_')
+      .map((ipfsHashB58: string) => base58.decode(ipfsHashB58));
+    console.log(ipfsHashesBinary);
+    // @ts-ignore
+    // TODO check
+    const ipfsHashesDecoded = ipfsHashesBinary.map((ipfsHashBinary: string) =>
+      new Buffer(ipfsHashBinary).toString('hex')
+    );
+    console.log(ipfsHashesDecoded);
+    const ipfsHashes = ipfsHashesDecoded.map(
+      (ipfsHashDecoded: string | any[]) =>
+        ipfsHashDecoded.slice(4, ipfsHashDecoded.length)
+    );
+    console.log(ipfsHashes);
+
+    const action = CMSAction.CREATE_PROJECT;
+    const request = action + website + ipfsHashes;
+    const requests = [request];
+    console.log('Creating project: ', requests);
+
+    // make sure file is accesible by ipfs.io/ipfs/<hash>
+    const dataIpfs = await fetch(`https://ipfs.io/ipfs/${metadata}`);
+    console.log("dataIpfs", dataIpfs);
+
+    const cmsContract = new ethers.Contract(
+      WEB3_HUNT_CONTRACT, WEB3HUNT_ABI, signer[0].data
+    ) as Web3HuntContentManager;
+
+    const response = await cmsContract.stateChange(requests);
+    console.log('Response: ', response.data);
+    console.log('TxHash: ', response.hash);
+  };
 
   const pickImageHandler = () => {
     filePickerRef.current?.click()
@@ -122,7 +180,10 @@ export function CreateProject() {
       })
 
     if (!res.ok) throw new Error("Error creating project");
-    const result = await res.text()
+    const result = await res.json()
+    alert(result.IpfsHash)
+    const onchainResult = await createProjectOnchain(result.IpfsHash, WEB3_HUNT_WEBSITE_RINKEBY)
+    console.log("onchainResult", onchainResult)
     console.log(result)
     // result.user => 'Ada Lovelace'
   }

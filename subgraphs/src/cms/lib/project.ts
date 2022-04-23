@@ -23,8 +23,16 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     log.debug("Project already exists, {}", [projectId] );
     return
   }
+  let user = User.load(owner)
+  if (user == null) {
+    // create new user entity
+    user = new User(owner)
+    user.deployTimestamp = event.block.timestamp
+    user.deployBlock = event.block.number
+    user.save()
+  }
   project = new Project(projectId)
-  project.owner = owner
+  project.owner = user.id
 
   log.debug("Getting metadata from ipfs {}", [ipfsMetadata])
   let data = ipfs.cat(ipfsMetadata)
