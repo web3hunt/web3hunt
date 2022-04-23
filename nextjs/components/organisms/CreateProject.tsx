@@ -13,12 +13,16 @@ export function CreateProject() {
     cid?: string;
   }>({});
   const [imagePreview, setImagePreview] = useState()
-  const [media1, setMedia1] = useState()
+  const [media, setMedia] = useState<File[]>([]);
 
   const filePickerRef = useRef<HTMLInputElement>(null);
+  const filePickerRefMedia = useRef<HTMLInputElement>(null);
 
   const pickImageHandler = () => {
     filePickerRef.current?.click()
+  }
+  const pickImageHandlerMedia = () => {
+    filePickerRefMedia.current?.click()
   }
 
   const pickedHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -32,14 +36,17 @@ export function CreateProject() {
     }
   }
 
-  const pickedHandlerM1 = (event: React.FormEvent<HTMLInputElement>) => {
+  const pickedHandlerMedia = (event: React.FormEvent<HTMLInputElement>) => {
     let pickedFile
     if (
       (event.target as HTMLInputElement).files &&
       (event.target as HTMLInputElement).files.length === 1
     ) {
       pickedFile = (event.target as HTMLInputElement).files[0]
-      setMedia1(pickedFile)
+      // media.push(pickedFile);
+      var newMedia = Array.from(media);
+      newMedia.push(pickedFile)
+      setMedia(newMedia)
     }
   }
 
@@ -75,8 +82,9 @@ export function CreateProject() {
       imagePreviewCID = await previewRes.text()
     }
 
-    var media1CID
-    if (media1) {
+    let mediaCIDs = []
+
+    for (let m of media) {
       const previewRes = await fetch(
         '/api/upload',
         {
@@ -86,11 +94,11 @@ export function CreateProject() {
           },
           body: JSON.stringify({ 
             fileName: 'picture', 
-            payload: await getBase64(media1)
+            payload: await getBase64(m)
           })
         }
       )
-      media1CID = await previewRes.text()
+      mediaCIDs.push(await previewRes.text())
     }
 
     const res = await fetch(
@@ -108,7 +116,7 @@ export function CreateProject() {
             description: event.target.description.value,
             tags: tags,
             imagePreview: imagePreviewCID,
-            media: [ media1CID ],
+            media: mediaCIDs,
             metadata_type: "project_metadata"
           })
         })
@@ -215,42 +223,36 @@ export function CreateProject() {
           className={`m-auto flex max-w-md items-center rounded-lg bg-gray-50 p-5 shadow-2xl dark:bg-slate-700`}
           onClick={pickImageHandler}
         >
-        <div className="flex w-full flex-col items-center justify-center space-y-2">
-          {!imagePreview ? (
-            <p>
-              <p className="w-full text-center">Please pick an preview image</p>
-              <p className="w-2/3 text-center text-xs text-gray-400">
-                Image must be in format .jpg, .jpeg or .png
+          <div className="flex w-full flex-col items-center justify-center space-y-2">
+            {!imagePreview ? (
+              <p>
+                <p className="w-full text-center">Upload preview image</p>
               </p>
-            </p>
-          ) : (
-            <p>Set</p>
-          )}
-        </div>
+            ) : (
+              <p>{imagePreview.name}</p>
+            )}
+          </div>
         </div>
         <input
-          ref={filePickerRef}
+          ref={filePickerRefMedia}
           className="hidden"
           type="file"
           accept=".jpg, .png, .jpeg"
-          onChange={pickedHandlerM1}
+          onChange={pickedHandlerMedia}
         />
         <div
           className={`m-auto flex max-w-md items-center rounded-lg bg-gray-50 p-5 shadow-2xl dark:bg-slate-700`}
-          onClick={pickImageHandler}
+          onClick={pickImageHandlerMedia}
         >
-        <div className="flex w-full flex-col items-center justify-center space-y-2">
-          {!media1 ? (
+          <div className="flex w-full flex-col items-center justify-center space-y-2">
             <p>
-              <p className="w-full text-center">Please pick an preview image</p>
-              <p className="w-2/3 text-center text-xs text-gray-400">
-                Image must be in format .jpg, .jpeg or .png
-              </p>
+              <p className="w-full text-center">Add media pictures</p>
+              <ul>
+                {media.map((value, index) => {
+                  return <li key={index}>{value.name}</li>
+              })}</ul>
             </p>
-          ) : (
-            <p>Set</p>
-          )}
-        </div>
+          </div>
         </div>
         <PrimaryButton type="submit">Create Project</PrimaryButton>
       </div>
