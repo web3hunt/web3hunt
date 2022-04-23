@@ -21,7 +21,7 @@ type Project @entity {
   "owner of the project - user who created the project"
   owner: User!
   "content linked to this project"
-  metadata: String!
+  metadata: [ProjectMetadata!]! @derivedFrom(field: "project")
 
   "one wallet can only vote once, number of upvotes is length of array -"
   supporters: [SupporterProject!]! @derivedFrom(field: "project")
@@ -31,7 +31,9 @@ type Project @entity {
   "project description, if content with such data is linked to the project"
   short_description: String!
   "project category - e.g. 'defi', 'ethAmsterdam', 'web3-social' etc."
-  category: String!
+  tags: [String!]!
+  "image preview - IPFS string"
+  imagePreview: String!
 
   deployBlock: BigInt!
   deployTimestamp: BigInt!
@@ -47,6 +49,19 @@ type User @entity {
   projectsOwner: [Project!]! @derivedFrom(field: "owner")
   "projects this user is supporter of"
   projectsSupporter: [SupporterProject!]! @derivedFrom(field: "user")
+
+  deployBlock: BigInt!
+  deployTimestamp: BigInt!
+  txHash: Bytes!
+}
+
+type ProjectMetadata @entity {
+  "unique identifier and primary key of the entity"
+  id: ID!
+  "project this metadata is linked to"
+  project: Project!
+  "content linked to this metadata"
+  metadata: String!
 
   deployBlock: BigInt!
   deployTimestamp: BigInt!

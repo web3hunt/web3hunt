@@ -1,0 +1,9 @@
+{
+  "name": "Updated EthGlobal",
+  "short_description": "EthGlobal demo project with updated short_descritption",
+  "description": "This is the best application ever, it codes itself and does everything you will ever need and auto updates itself",
+  "tags": ["ethglobal", "hello-world", "demo", "updated"],
+  "imagePreview": "QmQ4kRw4TLN7aMprSG8bvHchNJgCDjKTtoyvYrL54iPx3A",
+  "media": ["QmQ4kRw4TLN7aMprSG8bvHchNJgCDjKTtoyvYrL54iPx3A","QmP6aZFbJ4uM1cu2ZnNNFrD5mCGis4YTre9G8T9mCahWTM", "QmPU3b3vtrizCwL5xdpr5iMMD37pSwGugFyYGWPsnxaUHG", "QmSqFUsAW1NJgFwPYaUJ1jojhHzvqHTJetxYz4DN1d934w"],
+  "metadata_type": "project_metadata"
+}

@@ -27,3 +27,14 @@ export const SecondaryButton = ({ className, children, onClick }: Props) => {
     </button>
   );
 };
+
+export const FilterButton = ({ children, onClick }: Props) => {
+  return (
+    <button
+      onClick={onClick}
+      className="rounded-full border-0 bg-gradient-to-r from-[#B07DC9] to-secondary py-2 px-6 text-lg text-white shadow-2xl transition-all duration-200 sm:mt-0 focus:outline-none focus:ring focus:ring-violet-300 md:hover:from-[#aa66cc] md:hover:to-[#9696ff]"
+    >
+      {children}
+    </button>
+  );
+};

@@ -1,4 +1,4 @@
-import {Project, SupporterProject, User, Website, WebsiteProject} from "../../../generated/schema";
+import {Project, ProjectMetadata, SupporterProject, User, Website, WebsiteProject} from "../../../generated/schema";
 import {buildMappingTableId} from "./utils";
 import {StateChange} from "../../../generated/Web3HuntContentManager/Web3HuntContentManager";
 import {log, store, ipfs, json} from "@graphprotocol/graph-ts";
@@ -25,8 +25,7 @@ export function createProject(owner : string, websiteId: string, projectId: stri
   }
   project = new Project(projectId)
   project.owner = owner
-  project.metadata = ipfsMetadata
-  // TODO parse metadata from ipfs and assign fields:
+
   log.debug("Getting metadata from ipfs {}", [ipfsMetadata])
   let data = ipfs.cat(ipfsMetadata)
   if (data === null) {
@@ -34,15 +33,12 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     return
   }
   log.debug("metadata found on IPFS {}", [ipfsMetadata])
-
   if (data.toString().slice(data.toString().length - 1, data.toString().length) != "}") {
     log.debug("skip parsing - metadata {} is not a JSON object", [ipfsMetadata])
     return;
   }
-
   log.debug("parsing metadata {}", [data.toString()])
   let valueWrapped = json.try_fromString(data.toString())
-
   if (valueWrapped.isError) {
     log.debug("metadata not valid JSON (string) {}", [ipfsMetadata])
     log.warning("metadata not valid JSON (string) {}", [ipfsMetadata])
@@ -66,13 +62,23 @@ export function createProject(owner : string, websiteId: string, projectId: stri
     project.name = name.toString()
   }
 
-  let category = jsonObject.get("category")
-  if (category != null) {
-    log.debug("category {}", [category.toString()])
-    project.category = category.toString()
+  let imagePreview = jsonObject.get("imagePreview")
+  if (imagePreview != null) {
+    log.debug("imagePreview {}", [imagePreview.toString()])
+    project.imagePreview = imagePreview.toString()
+  }
+
+  let tags = jsonObject.get("tags")
+  if (!tags) {
+    log.debug("metadata is missing tags", [])
   } else {
-    log.debug("category not found, defaulting to 'other'", [])
-    project.category = "other"
+    let tagsArray = new Array<string>()
+    let tagsList = tags.toArray()
+    for (let i = 0; i < tagsList.length ; i++){
+      tagsArray.push(tagsList[i].toString())
+    }
+    log.debug("tags {}", [tagsArray.toString()])
+    project.tags = tagsArray
   }
 
   project.deployBlock = event.block.number
@@ -87,8 +93,21 @@ export function createProject(owner : string, websiteId: string, projectId: stri
   websiteProject.project = projectId
   websiteProject.website = websiteId
 
+  // create projectMetadata entity
+  let projectMetadata = ProjectMetadata.load(buildMappingTableId(projectId, ipfsMetadata))
+  if (projectMetadata != null) {
+    log.debug("ProjectMetadata already exists {}", [buildMappingTableId(projectId, ipfsMetadata)] );
+    return
+  }
+  projectMetadata = new ProjectMetadata(buildMappingTableId(projectId, ipfsMetadata))
+  projectMetadata.project = projectId
+  projectMetadata.metadata = ipfsMetadata
+  projectMetadata.deployTimestamp = event.block.timestamp
+  projectMetadata.deployBlock = event.block.number
+
   project.save()
   websiteProject.save()
+  projectMetadata.save()
 
 }
 
@@ -116,4 +135,89 @@ export function upvoteProject(eventAuthor : string, projectId : string, event: S
   project.supportersCount = project.supportersCount.plus(ONE_BI)
   project.save()
   projectSupporter.save()
+}
+
+export function updateProject(eventAuthor : string, projectId : string, metadata: string, event: StateChange): void {
+  let project = Project.load(projectId)
+  if (project == null) return
+
+  // check if eventAuthor is owner of project
+  if (project.owner != eventAuthor) {
+    log.debug("eventAuthor {} is not owner of project {}", [eventAuthor, projectId])
+    return
+  }
+
+  log.debug("Getting metadata from ipfs {}", [metadata])
+  let data = ipfs.cat(metadata)
+  if (data === null) {
+    log.warning("metadata {} not found on IPFS", [metadata])
+    return
+  }
+  log.debug("metadata found on IPFS {}", [metadata])
+  if (data.toString().slice(data.toString().length - 1, data.toString().length) != "}") {
+    log.debug("skip parsing - metadata {} is not a JSON object", [metadata])
+    return;
+  }
+  log.debug("parsing metadata {}", [data.toString()])
+  let valueWrapped = json.try_fromString(data.toString())
+  if (valueWrapped.isError) {
+    log.debug("metadata not valid JSON (string) {}", [metadata])
+    log.warning("metadata not valid JSON (string) {}", [metadata])
+    return
+  }
+
+  log.debug("metadata valid JSON", [])
+  let value = valueWrapped.value
+
+  let jsonObject = value.toObject()
+
+  let short_description = jsonObject.get("short_description")
+  if (short_description != null) {
+    log.debug("short_description {}", [short_description.toString()])
+    project.short_description = short_description.toString()
+  }
+
+  let name = jsonObject.get("name")
+  if (name != null) {
+    log.debug("name {}", [name.toString()])
+    project.name = name.toString()
+  }
+
+  let imagePreview = jsonObject.get("imagePreview")
+  if (imagePreview != null) {
+    log.debug("imagePreview {}", [imagePreview.toString()])
+    project.imagePreview = imagePreview.toString()
+  }
+
+  let tags = jsonObject.get("tags")
+  if (!tags) {
+    log.debug("metadata is missing tags", [])
+  } else {
+    let tagsArray = new Array<string>()
+    let tagsList = tags.toArray()
+    for (let i = 0; i < tagsList.length ; i++){
+      tagsArray.push(tagsList[i].toString())
+    }
+    log.debug("tags {}", [tagsArray.toString()])
+    project.tags = tagsArray
+  }
+
+  // create projectMetadata entity
+  let projectMetadata = ProjectMetadata.load(buildMappingTableId(projectId, metadata))
+  if (projectMetadata != null) {
+    log.debug("ProjectMetadata already exists {}", [buildMappingTableId(projectId, metadata)] );
+    return
+  }
+  projectMetadata = new ProjectMetadata(buildMappingTableId(projectId, metadata))
+  projectMetadata.project = projectId
+  projectMetadata.metadata = metadata
+  projectMetadata.deployTimestamp = event.block.timestamp
+  projectMetadata.deployBlock = event.block.number
+
+
+  project.updateTimestamp = event.block.timestamp
+  project.updateBlock = event.block.number
+
+  project.save()
+  projectMetadata.save()
 }
