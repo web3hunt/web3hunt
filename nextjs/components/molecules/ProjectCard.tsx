@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Paragraph, SubTitle } from '../atoms/Typography';
 
 type Props = {
@@ -11,6 +12,26 @@ type Props = {
 };
 
 export const ProjectCard = ({ id, title, desc, image, votes, tags }: Props) => {
+  // console.log(image.startsWith('Qm') ? `https://ipfs.io/ipfs/${image}` : `https://ipfs.io/ipfs/${image}/picture`)
+  const imageSource = image.startsWith('Qm')
+    ? `https://ipfs.io/ipfs/${image}`
+    : `https://ipfs.io/ipfs/${image}/picture`;
+  const [imgsrc, setImgsrc] = useState('');
+
+  useEffect(() => {
+    if (!image.startsWith('Qm')) {
+      getIpfsImage();
+    } else {
+      setImgsrc(`https://ipfs.io/ipfs/${image}`);
+    }
+  }, []);
+
+  const getIpfsImage = async () => {
+    const res = await fetch(imageSource);
+    setImgsrc(await res.text());
+  };
+
+  console.log(imgsrc);
   return (
     <Link href={'/projects/id'}>
       <div
@@ -20,11 +41,7 @@ export const ProjectCard = ({ id, title, desc, image, votes, tags }: Props) => {
         <div className="flex relative w-full min-h-[200px] items-center space-x-4 lg:flex-col lg:items-start lg:space-x-0">
           <img
             className="w-full h-full object-cover"
-            src={
-              image.startsWith('Qm')
-                ? `https://ipfs.io/ipfs/${image}`
-                : `https://ipfs.io/ipfs/${image}/regular`
-            }
+            src={imgsrc}
             alt={title}
           />
 

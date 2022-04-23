@@ -4,7 +4,6 @@ import { AppCtx } from '../../context/CtxProvider';
 import { PrimaryButton } from '../atoms/Buttons';
 import { Paragraph, Title } from '../atoms/Typography';
 import { Container } from '../templates/Container';
-import { Upload } from '../Upload';
 
 export const Hero = ({ pageProps }: AppProps) => {
   const ctx = useContext(AppCtx);
@@ -26,7 +25,7 @@ export const Hero = ({ pageProps }: AppProps) => {
 
           <Paragraph className="mb-8 font-semibold">
             {
-              "We help create the best Web3 user experience. Ping us and let's build something epic together!"
+              "We help you find the best dapps. Ping us and let's build something epic together!"
             }
           </Paragraph>
           <div className="flex justify-center">
