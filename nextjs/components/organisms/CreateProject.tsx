@@ -102,15 +102,14 @@ export function CreateProject() {
     }
 
     const res = await fetch(
-      '/api/upload',
+      '/api/ipfs-json',
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
-          fileName: 'payload.json', 
-          payload: JSON.stringify({
+        body: JSON.stringify({
+          projectBody: JSON.stringify({
             name: event.target.name.value,
             short_description: event.target.short_description.value,
             description: event.target.description.value,
@@ -130,8 +129,6 @@ export function CreateProject() {
   }
 
   return (
-    <Popup trigger={<PrimaryButton type="submit">Create Project</PrimaryButton>} 
-    position="right center">
       <div>
         <form onSubmit={createProject}>
           <div className="group relative z-0 mb-6 w-full">
@@ -144,11 +141,7 @@ export function CreateProject() {
             <input
               type="text"
               {...({
-                required: { value: true, message: 'Please enter the project name' },
-                maxLength: {
-                  value: 30,
-                  message: 'Please use 30 characters or less',
-                },
+                required: { value: true, message: 'Please enter the project name' }
               })}
               id="name"
               className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
@@ -166,11 +159,7 @@ export function CreateProject() {
             <input
               type="text"
               {...({
-                required: { value: true, message: 'Please enter a short project description' },
-                maxLength: {
-                  value: 100,
-                  message: 'Please use 100 characters or less',
-                },
+                required: { value: true, message: 'Please enter a short project description' }
               })}
               id="short_description"
               className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
@@ -188,11 +177,7 @@ export function CreateProject() {
             <input
               type="text"
               {...({
-                required: { value: true, message: 'Please enter a full project description' },
-                maxLength: {
-                  value: 500,
-                  message: 'Please use 500 characters or less',
-                },
+                required: { value: true, message: 'Please enter a full project description' }
               })}
               id="description"
               className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
@@ -210,11 +195,7 @@ export function CreateProject() {
             <input
               type="text"
               {...({
-                required: { value: true, message: 'Please enter tags for your project' },
-                maxLength: {
-                  value: 100,
-                  message: 'Please use 100 characters or less',
-                },
+                required: { value: true, message: 'Please enter tags for your project' }
               })}
               id="tags"
               className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-zinc-900 focus:border-purple-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
@@ -273,6 +254,5 @@ export function CreateProject() {
           </div>
         </form>
       </div>
-    </Popup>
   )
 }

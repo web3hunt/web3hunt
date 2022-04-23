@@ -8,13 +8,16 @@ export const config = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  switch (req.method) {
-    default:
+  const { method } = req;
+  switch (method) {
     case 'POST': {
-      const { ipfsHash } = req.body
-      const ipfsJson = await pinata.pinJSONToIPFS(ipfsHash)
+      const { projectBody } = req.body
+      const ipfsJson = await pinata.pinJSONToIPFS(projectBody)
       res.status(200).json(ipfsJson)
       break
     }
+    default:
+      res.setHeader("Allow", ["GET"]);
+      res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
