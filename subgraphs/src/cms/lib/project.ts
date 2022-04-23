@@ -38,14 +38,15 @@ export function createProject(owner : string, websiteId: string, projectId: stri
   let data = ipfs.cat(ipfsMetadata)
   let counter = 0
   while (!data) {
+    log.debug("Waiting for ipfs data {}", [counter.toString()])
     counter++
     data = ipfs.cat(ipfsMetadata)
-    if (counter > 10) {
+    if (counter > 20) {
       log.debug("Failed to get metadata from ipfs {}", [ipfsMetadata])
       return
     }
   }
-  if (data === null) {
+  if (!data) {
     log.warning("metadata {} not found on IPFS", [ipfsMetadata])
     return
   }
