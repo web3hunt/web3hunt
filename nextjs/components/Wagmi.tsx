@@ -1,9 +1,10 @@
 import type { AppProps } from 'next/app';
 import React from "react";
+import { PrimaryButton } from './atoms/Buttons';
 import { SiweMessage } from "siwe";
 import { useAccount, useConnect, useNetwork, useSignMessage } from "wagmi";
 
-export function Login({ pageProps }: AppProps) {
+export function Wagmi({ pageProps }: AppProps) {
   const [{ data: accountData }] = useAccount({
     fetchEns: false,
   });
@@ -16,7 +17,7 @@ function ConnectWallet({ pageProps }: AppProps) {
   const [{ data, error }, connect] = useConnect()
 
   return (
-    <li>
+    <PrimaryButton>
       <a>Connect</a>
       <ul>
         {data.connectors.map((connector) => (
@@ -29,7 +30,7 @@ function ConnectWallet({ pageProps }: AppProps) {
           <div>{error?.message ?? "Failed to connect"}</div>
         )} */}
       </ul>
-    </li>
+    </PrimaryButton>
   )
 };
 
@@ -103,31 +104,31 @@ export function SignInWithEthereum({ pageProps }: AppProps) {
   }, []);
 
   return (
-    <li>
+    <div>
       {state.address ? (
         <div>
           <div>Signed in as {state.address.substring(0, 6)}...</div>
-          <button
+          <PrimaryButton
             onClick={async () => {
               await fetch("/api/logout");
               setState({});
             }}
           >
             Sign Out
-          </button>
+          </PrimaryButton>
         </div>
       ) : (
-        <button disabled={state.loading} onClick={signIn}>
+        <PrimaryButton onClick={signIn}>
           Sign-In with Ethereum with{" "}
           {accountData?.ens?.name
             ? `${accountData.ens?.name}`
             : accountData?.address?.substring(0, 6)}
           ...
-        </button>
+        </PrimaryButton>
       )}
-      <button disabled={state.loading} onClick={disconnect}>
+      <PrimaryButton onClick={disconnect}>
         Disconnect Wallet
-      </button>
-    </li>
+      </PrimaryButton>
+    </div>
   );
 };

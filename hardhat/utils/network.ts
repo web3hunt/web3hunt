@@ -1,0 +1,44 @@
+export const nodeUrl = (networkName: string): string => {
+  if (networkName) {
+    const uri = process.env["ETH_NODE_URI_" + networkName.toUpperCase()];
+    if (uri && uri !== "") {
+      return uri;
+    }
+  }
+
+  let uri = process.env.ETH_NODE_URI;
+  if (uri) {
+    uri = uri.replace("{{networkName}}", networkName);
+  }
+  if (!uri || uri === "") {
+    if (networkName === "localhost") {
+      return "http://localhost:8545";
+    }
+    return "";
+  }
+  if (uri.indexOf("{{") >= 0) {
+    throw new Error(
+      `invalid uri or network not supported by nod eprovider : ${uri}`
+    );
+  }
+  return uri;
+};
+
+export const getMnemonic = (networkName?: string): string => {
+  if (networkName) {
+    const mnemonic = process.env["MNEMONIC_" + networkName.toUpperCase()];
+    if (mnemonic && mnemonic !== "") {
+      return mnemonic;
+    }
+  }
+
+  const mnemonic = process.env.MNEMONIC;
+  if (!mnemonic || mnemonic === "") {
+    return "temp temp temp temp temp temp temp temp temp temp temp junk";
+  }
+  return mnemonic;
+};
+
+export const accounts = (networkName?: string): { mnemonic: string } => {
+  return { mnemonic: getMnemonic(networkName) };
+};
