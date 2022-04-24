@@ -1,6 +1,3 @@
-# web3hunt
+# dapphunter
 
-## structure
-
-- `nextjs`: nextjs project with tailwind, daisyUI and wagmi (incl. navbar with wallet connect and sign-in with Ethereum)
-- `hardhat`: smart contract dev
+https://pitch.com/public/81e7dde6-f189-44ea-a531-dd32a836b9f2
